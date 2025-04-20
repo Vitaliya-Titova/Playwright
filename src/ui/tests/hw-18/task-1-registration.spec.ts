@@ -20,16 +20,18 @@ test.describe("[UI] Registration", () => {
     await page.locator("#registerOnLogin").click();
   });
 
+  const registerFormTitle = "#registerForm";
   const fieldUsername = "#userNameOnRegister";
   const fieldPassword = "#passwordOnRegister";
   const buttonRegister = "#register";
+  const buttonBack = "#backOnRegister";
 
-  test("Register form: Should display required fileds ", async ({ page }) => {
-    await expect(page.locator("#registerForm")).toContainText("Registration");
+  test("Register form: Should display fields and buttons", async ({ page }) => {
+    await expect(page.locator(registerFormTitle)).toHaveText("Registration");
     await expect(page.locator(fieldUsername)).toBeVisible();
     await expect(page.locator(fieldPassword)).toBeVisible();
     await expect(page.locator(buttonRegister)).toBeVisible();
-    await expect(page.locator("#backOnRegister")).toBeVisible();
+    await expect(page.locator(buttonBack)).toBeVisible();
   });
 
   test("Smoke | Should registrate with valid credentials", async ({ page }) => {
@@ -38,7 +40,7 @@ test.describe("[UI] Registration", () => {
     await page.locator(buttonRegister).click();
 
     const notification = page.locator("#errorMessageOnRegister");
-    await expect(notification).toContainText(
+    await expect(notification).toHaveText(
       "Successfully registered! Please, click Back to return on login page"
     );
   });
