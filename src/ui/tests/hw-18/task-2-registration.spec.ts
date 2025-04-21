@@ -2,7 +2,7 @@
 
 // 1. Переход на страницу https://anatoly-karpovich.github.io/demo-registration-form/
 // 2. Заполните форму регистрации
-// 3. Проверьте, что пользователь успешно зарегистрирован
+// 3. Проверьте , что пользователь успешно зарегистрирован
 
 import { test, expect } from "@playwright/test";
 
