@@ -14,7 +14,7 @@ test.describe("[UI] Registration", () => {
     email: "test@gmail.com",
     phone: "1234567",
     country: "Canada",
-    gender: "female",
+    gender: "male",
     hobbies1: "Travelling",
     hobbies2: "Movies",
     language: "Spanish",
@@ -31,7 +31,7 @@ test.describe("[UI] Registration", () => {
     );
   });
 
-  // const registerFormTitle = "#registerForm";
+  //registration form fields
   const fieldFirstname = "#firstName";
   const fieldLastname = "#lastName";
   const textareaAddress = "#address";
@@ -59,9 +59,9 @@ test.describe("[UI] Registration", () => {
     await page
       .locator(dropdownCountry)
       .selectOption({ value: validCredentials.country });
-    await page.locator(radioGender).check(); // Select the radio button
-    await page.locator(checkboxHobbies1).check(); //Select checkbox 1
-    await page.locator(checkboxHobbies2).check(); //Select checkbox 2
+    await page.locator(radioGender).check();
+    await page.locator(checkboxHobbies1).check();
+    await page.locator(checkboxHobbies2).check();
     await page.locator(fieldLanguage).fill(validCredentials.language);
     await page.locator(dropdownSkills).selectOption(validCredentials.skills);
     await page
