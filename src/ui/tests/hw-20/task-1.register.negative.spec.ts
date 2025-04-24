@@ -1,4 +1,5 @@
-// Создать тест сьют используя DDT подход с негативными тест-кейсами по регистрации на сайте
+// Создать тест сьют используя DDT (Data-Driven Testing - тестовые данные хранятся отдельно от тестового скрипта)
+// подход с негативными тест-кейсами по регистрации на сайте
 // https://anatoly-karpovich.github.io/demo-login-form/
 
 // Требования:
@@ -25,7 +26,8 @@ enum Messages {
   UsernameSpaces = "Prefix and postfix spaces are not allowed is username",
 
   PasswordTooShort = "Password should contain at least 8 characters",
-  PasswordSensitive = "Password should contain at least one character in lower case",
+  PasswordSensitiveLower = "Password should contain at least one character in lower case",
+  PasswordSensitiveUpper = "Password should contain at least one character in upper case",
   PasswordTooLong = "Password can't exceed 20 characters",
 
   RegistrationSuccess = "Successfully registered! Please, click Back to return on login page",
@@ -84,7 +86,7 @@ const regInvalidTestData: IRegInvalidData[] = [
     testName: "Error | Password not contains letters",
     username: "Abcqw ertyzc",
     password: "123456#$%^",
-    message: Messages.PasswordSensitive,
+    message: Messages.PasswordSensitiveLower,
   },
   {
     testName: "Error | Username should contain at least 3 characters",
@@ -122,7 +124,14 @@ const regInvalidTestData: IRegInvalidData[] = [
       "Error | Password should contain at least one character in lower cases",
     username: "Qwertyc",
     password: "QWERTYQWERT123",
-    message: Messages.PasswordSensitive,
+    message: Messages.PasswordSensitiveLower,
+  },
+  {
+    testName:
+      "Error | Password should contain at least one character in upper cases",
+    username: "Qwertyc",
+    password: "qwertyuio123",
+    message: Messages.PasswordSensitiveUpper,
   },
   {
     testName: "Error | Password can't exceed 20 characters",
@@ -136,6 +145,12 @@ test.describe("[UI] Registration Form – Negative Tests (DDT)", () => {
   test.beforeEach(async ({ page }) => {
     await page.goto("https://anatoly-karpovich.github.io/demo-login-form/");
     await page.locator("#registerOnLogin").click();
+    await page
+      .locator("#userNameOnRegister")
+      .evaluate((el) => el.removeAttribute("maxlength"));
+    await page
+      .locator("#passwordOnRegister")
+      .evaluate((el) => el.removeAttribute("maxlength"));
   });
 
   regInvalidTestData.forEach(({ testName, username, password, message }) => {
