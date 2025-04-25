@@ -14,130 +14,130 @@
 import test, { expect } from "@playwright/test";
 
 enum Messages {
-  RequiredUsername = "Username is required",
-  RequiredPassword = "Password is required",
-  RequiredField = "Credentials are required",
-  InvalidData = "Please, provide valid data",
-  InvalidCredentials = "Invalid credentials",
+  REQUIRED_USERNAME = "Username is required",
+  REQUIRED_PASSWORD = "Password is required",
+  REQUIRED_FIELD = "Credentials are required",
+  INVALID_DATA = "Please, provide valid data",
+  INVALID_CREDENTIALS = "Invalid credentials",
 
-  UsernameTooShort = "Username should contain at least 3 characters",
-  UsernameTaken = "Username is in use",
-  UsernameTooLong = "Username can't exceed 40 characters",
-  UsernameSpaces = "Prefix and postfix spaces are not allowed is username",
+  USERNAME_TOO_SHORT = "Username should contain at least 3 characters",
+  USERNAME_TAKEN = "Username is in use",
+  USERNAME_TOO_LONG = "Username can't exceed 40 characters",
+  USERNAME_SPACES = "Prefix and postfix spaces are not allowed is username",
 
-  PasswordTooShort = "Password should contain at least 8 characters",
-  PasswordSensitiveLower = "Password should contain at least one character in lower case",
-  PasswordSensitiveUpper = "Password should contain at least one character in upper case",
-  PasswordTooLong = "Password can't exceed 20 characters",
+  PASSWORD_TOO_SHORT = "Password should contain at least 8 characters",
+  PASSWORD_SENSITIVE_LOWER = "Password should contain at least one character in lower case",
+  PASSWORD_SENSITIVE_UPPER = "Password should contain at least one character in upper case",
+  PASSWORD_TOO_LONG = "Password can't exceed 20 characters",
 
-  RegistrationSuccess = "Successfully registered! Please, click Back to return on login page",
+  REGISTRATION_SUCCESS = "Successfully registered! Please, click Back to return on login page",
 }
-interface IRegInvalidData {
+interface IRegistrationInvalidData {
   testName: string;
   username: string;
   password: string;
   message: Messages;
 }
 
-const regInvalidTestData: IRegInvalidData[] = [
+const regInvalidTestData: IRegistrationInvalidData[] = [
   {
     testName: "Error | Username is empty",
     username: "",
     password: "QWErty123456789",
-    message: Messages.RequiredUsername,
+    message: Messages.REQUIRED_USERNAME,
   },
   {
     testName: "Error | Username contains only spaces",
     username: "             ",
     password: "QWErty12345678",
-    message: Messages.UsernameSpaces,
+    message: Messages.USERNAME_SPACES,
   },
   {
     testName: "Error | Password is empty",
     username: "Abcqwertyq",
     password: "",
-    message: Messages.RequiredPassword,
+    message: Messages.REQUIRED_PASSWORD,
   },
   {
     testName: "Error | Password contains only spaces",
     username: "Abcqwerty",
     password: "          ",
-    message: Messages.RequiredPassword,
+    message: Messages.REQUIRED_PASSWORD,
   },
   {
     testName: "Error | Provide invalid data",
     username: "1",
     password: "2",
-    message: Messages.InvalidData,
+    message: Messages.INVALID_DATA,
   },
   {
     testName: "Error | Username and password contain only spaces",
     username: "       ",
     password: "        ",
-    message: Messages.InvalidData,
+    message: Messages.INVALID_DATA,
   },
   {
     testName: "Error | Username and password are empty",
     username: "",
     password: "",
-    message: Messages.InvalidData,
+    message: Messages.INVALID_DATA,
   },
   {
     testName: "Error | Password not contains letters",
     username: "Abcqw ertyzc",
     password: "123456#$%^",
-    message: Messages.PasswordSensitiveLower,
+    message: Messages.PASSWORD_SENSITIVE_LOWER,
   },
   {
     testName: "Error | Username should contain at least 3 characters",
     username: "A",
     password: "QWErty12345678",
-    message: Messages.UsernameTooShort,
+    message: Messages.USERNAME_TOO_SHORT,
   },
   {
     testName: "Error | Username can't exceed 40 characters",
     username:
       "AAAAAAAAAAAAAAAAbbbbbbbbbbbbbDDDDDDDDDDDDDeeeeeeeeeeeeeeFFFFFFFFFFF",
     password: "QWErty12345678",
-    message: Messages.UsernameTooLong,
+    message: Messages.USERNAME_TOO_LONG,
   },
   {
     testName: "Error |  Username starts with spaces",
     username: "  Abcqwermy",
     password: "QWErty12345678",
-    message: Messages.UsernameSpaces,
+    message: Messages.USERNAME_SPACES,
   },
   {
     testName: "Error | Username ends with spaces",
     username: "Abcqwenrty ",
     password: "QWErty12345678",
-    message: Messages.UsernameSpaces,
+    message: Messages.USERNAME_SPACES,
   },
   {
     testName: "Error | Password should contain at least 8 characters",
     username: "Qwertt",
     password: "QWE",
-    message: Messages.PasswordTooShort,
+    message: Messages.PASSWORD_TOO_SHORT,
   },
   {
     testName:
       "Error | Password should contain at least one character in lower cases",
     username: "Qwertyc",
     password: "QWERTYQWERT123",
-    message: Messages.PasswordSensitiveLower,
+    message: Messages.PASSWORD_SENSITIVE_LOWER,
   },
   {
     testName:
       "Error | Password should contain at least one character in upper cases",
     username: "Qwertyc",
     password: "qwertyuio123",
-    message: Messages.PasswordSensitiveUpper,
+    message: Messages.PASSWORD_SENSITIVE_UPPER,
   },
   {
     testName: "Error | Password can't exceed 20 characters",
     username: "Qwerty12",
     password: "qwertyqwertyqwertyqwertyqwertyqwerty",
-    message: Messages.PasswordTooLong,
+    message: Messages.PASSWORD_TOO_LONG,
   },
 ];
 

@@ -18,13 +18,13 @@
 
 import test, { expect } from "@playwright/test";
 enum Promocodes {
-  Discount20 = "HelloThere",
-  Discount15 = "15-PERCENT-FOR-CSS",
-  Discount10 = "HOT-COURSE",
-  Discount10Basic = "10-PERCENT-FOR-REDEEM",
-  Discount8 = "NO-PYTHON",
-  Discount7 = "JAVA-FOR-BOOMERS",
-  Discount5 = "5-PERCENT-FOR-UTILS",
+  DISCOUNT20 = "HelloThere",
+  DISCOUNT15 = "15-PERCENT-FOR-CSS",
+  DISCOUNT10 = "HOT-COURSE",
+  DISCOUNT10_BASIC = "10-PERCENT-FOR-REDEEM",
+  DISCOUNT8 = "NO-PYTHON",
+  DISCOUNT7 = "JAVA-FOR-BOOMERS",
+  DISCOUNT5 = "5-PERCENT-FOR-UTILS",
 }
 
 test.describe("[UI | E2E] Demo Shopping Cart", () => {
@@ -76,13 +76,13 @@ test.describe("[UI | E2E] Demo Shopping Cart", () => {
     await expect(page.locator("#total-price")).toHaveText(`$5650.00`);
 
     //Add promo
-    await addPromo(Promocodes.Discount20, page);
-    await addPromo(Promocodes.Discount15, page);
-    await addPromo(Promocodes.Discount10, page);
-    await addPromo(Promocodes.Discount8, page);
-    await addPromo(Promocodes.Discount7, page);
-    await addPromo(Promocodes.Discount5, page);
-    await addPromo(Promocodes.Discount10Basic, page);
+    await addPromo(Promocodes.DISCOUNT20, page);
+    await addPromo(Promocodes.DISCOUNT15, page);
+    await addPromo(Promocodes.DISCOUNT10, page);
+    await addPromo(Promocodes.DISCOUNT8, page);
+    await addPromo(Promocodes.DISCOUNT7, page);
+    await addPromo(Promocodes.DISCOUNT5, page);
+    await addPromo(Promocodes.DISCOUNT10_BASIC, page);
 
     //Check price after discount
     const finalDiscount = await getDiscount(page);
