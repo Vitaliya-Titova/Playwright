@@ -16,7 +16,8 @@
 //   - зачекаутиться
 //   - завалидировать сумму
 
-import test, { expect } from "@playwright/test";
+import { test, expect, Page } from "@playwright/test";
+
 enum Promocodes {
   DISCOUNT20 = "HelloThere",
   DISCOUNT15 = "15-PERCENT-FOR-CSS",
