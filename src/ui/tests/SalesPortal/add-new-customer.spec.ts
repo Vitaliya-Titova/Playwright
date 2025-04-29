@@ -11,7 +11,7 @@ test.describe("[UI] [Sales Portal] [Customers]", async () => {
     const customersPage = new CustomersPage(page);
     const addNewCustomerPage = new AddNewCustomerPage(page);
     await page.goto("https://anatoly-karpovich.github.io/aqa-course-project/#");
-    await page.locator("#emailinput").fill("Vitaliya");
+    await page.locator("#emailinput").fill("test@gmail.com");
     await page.locator("#passwordinput").fill("12345678");
     await page.getByRole("button", { name: "Login" }).click();
 
