@@ -14,20 +14,16 @@ export class CustomersPage extends SalesPortalPage {
   }
 
   async checkNewCustomer(email: string, name: string, country: string) {
-    const emailList = this.page.locator(
-      "//*[@id='table-customers']/tbody/tr[1]/td[1]"
+    const tableFirstRow = this.page.locator(
+      "#table-customers tbody tr:first-child"
     );
+    const emailList = tableFirstRow.locator("td:nth-child(1)");
     await expect(emailList).toHaveText(email);
 
-    const namelList = this.page.locator(
-      "//*[@id='table-customers']/tbody/tr[1]/td[2]"
-    );
+    const namelList = tableFirstRow.locator("td:nth-child(2)");
     await expect(namelList).toHaveText(name);
 
-    const countrylList = this.page.locator(
-      "//*[@id='table-customers']/tbody/tr[1]/td[3]"
-    );
-
+    const countrylList = tableFirstRow.locator("td:nth-child(3)");
     await expect(countrylList).toHaveText(country);
   }
 }

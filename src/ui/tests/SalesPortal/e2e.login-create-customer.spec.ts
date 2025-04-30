@@ -31,6 +31,7 @@ test.describe("[E2E] SignIn and Customer Creation", () => {
     await addNewCustomerPage.clickSaveNewCustomer();
     await customersPage.waitForOpened();
     await customersPage.waitForNotification(NOTIFICATIONS.CUSTOMER_CREATED);
+    await customersPage.waitForOpened();
     await customersPage.checkNewCustomer(data.email, data.name, data.country);
   });
 });
