@@ -29,9 +29,7 @@ enum Promocodes {
 }
 
 test.describe("[UI | E2E] Demo Shopping Cart", () => {
-  test("Should successfully complete checkout with 5 products", async ({
-    page,
-  }) => {
+  test("Should successfully complete checkout with 5 products", async ({ page }) => {
     await page.goto("https://anatoly-karpovich.github.io/demo-shopping-cart/");
 
     //add Product
@@ -41,13 +39,7 @@ test.describe("[UI | E2E] Demo Shopping Cart", () => {
     await getAddCardBtn("Product 8", page).click();
     await getAddCardBtn("Product 10", page).click();
 
-    const [price2, price4, price6, price8, price10] = await Promise.all([
-      getPrice("Product 2", page),
-      getPrice("Product 4", page),
-      getPrice("Product 6", page),
-      getPrice("Product 8", page),
-      getPrice("Product 10", page),
-    ]);
+    const [price2, price4, price6, price8, price10] = await Promise.all([getPrice("Product 2", page), getPrice("Product 4", page), getPrice("Product 6", page), getPrice("Product 8", page), getPrice("Product 10", page)]);
 
     //Total price:
     const totalPrice = price2 + price4 + price6 + price8 + price10;
@@ -62,18 +54,10 @@ test.describe("[UI | E2E] Demo Shopping Cart", () => {
     await expect(page.locator("#amount-of-products-in-cart")).toHaveText("5");
 
     //Check name of products
-    await expect(page.locator("h5")).toContainText([
-      "Product 2",
-      "Product 4",
-      "Product 6",
-      "Product 8",
-      "Product 10",
-    ]);
+    await expect(page.locator("h5")).toContainText(["Product 2", "Product 4", "Product 6", "Product 8", "Product 10"]);
 
     //Check Shopping Cart Total price
-    await expect(page.locator("#total-price")).toHaveText(
-      `$${totalPrice.toFixed(2)}`
-    );
+    await expect(page.locator("#total-price")).toHaveText(`$${totalPrice.toFixed(2)}`);
     await expect(page.locator("#total-price")).toHaveText(`$5650.00`);
 
     //Add promo
@@ -89,31 +73,23 @@ test.describe("[UI | E2E] Demo Shopping Cart", () => {
     const finalDiscount = await getDiscount(page);
     const finalPriceWithDiscount = totalPrice * (1 - finalDiscount / 100);
     const discount = totalPrice - finalPriceWithDiscount;
-    await expect(page.locator("#total-price")).toHaveText(
-      `$${finalPriceWithDiscount.toFixed(2)} (-$${discount})`
-    );
+    await expect(page.locator("#total-price")).toHaveText(`$${finalPriceWithDiscount.toFixed(2)} (-$${discount})`);
 
     //Goto checkout
     await page.locator("#continue-to-checkout-button").click();
-    await expect(page.locator("span.text-muted")).toHaveText(
-      `$${finalPriceWithDiscount.toFixed(2)}`
-    );
+    await expect(page.locator("span.text-muted")).toHaveText(`$${finalPriceWithDiscount.toFixed(2)}`);
   });
 });
 
 function getAddCardBtn(productName: string, page: Page) {
   const cardProduct = page.locator("div.card-body");
-  return cardProduct
-    .filter({ has: page.getByRole("heading", { name: productName }) })
-    .getByRole("button", { name: "Add to card" });
+  return cardProduct.filter({ has: page.getByRole("heading", { name: productName }) }).getByRole("button", { name: "Add to card" });
 }
 
 async function getPrice(productName: string, page: Page) {
   const cardProduct = page.locator("div.card-body");
-  const dataPrice = cardProduct
-    .filter({ has: page.getByRole("heading", { name: productName }) })
-    .locator("span");
-  const textPrice = await dataPrice.textContent();
+  const dataPrice = cardProduct.filter({ has: page.getByRole("heading", { name: productName }) }).locator("span");
+  const textPrice = (await dataPrice.textContent()) ?? "";
   const price = textPrice.replace("$", "");
   return +price;
 }
@@ -127,12 +103,7 @@ async function addPromo(promo: Promocodes, page: Page) {
 
 async function getDiscount(page: Page) {
   const formDiscount = page.locator("#rebates-container");
-  const dataDiscount = await formDiscount
-    .locator("#rebates-list")
-    .locator("small");
+  const dataDiscount = formDiscount.locator("#rebates-list").locator("small");
   const textDiscount = await dataDiscount.allTextContents();
-  return textDiscount.reduce(
-    (sum: number, text) => sum + +text.replace("-", "").replace("%", ""),
-    0
-  );
+  return textDiscount.reduce((sum: number, text) => sum + +text.replace("-", "").replace("%", ""), 0);
 }

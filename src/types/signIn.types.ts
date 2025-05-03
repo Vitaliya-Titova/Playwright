@@ -1,4 +1,4 @@
-export interface ISignIn {
+export interface ICredentials {
   email: string;
   password: string;
 }

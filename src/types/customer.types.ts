@@ -11,3 +11,5 @@ export interface ICustomer {
   phone: string;
   notes?: string;
 }
+//объект, который имеет только три свойства из исходного типа ICustomer
+export type ICustomerInTable = Pick<ICustomer, "email" | "country" | "name">;

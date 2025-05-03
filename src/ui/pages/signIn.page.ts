@@ -1,16 +1,16 @@
-import { ISignIn } from "types/signIn.types";
+import { ICredentials } from "types/signIn.types";
 import { SalesPortalPage } from "./salePortal.page";
 
 export class SignInPage extends SalesPortalPage {
-  emailInput = this.page.locator("#emailinput");
-  passwordInput = this.page.locator("#passwordinput");
-  loginButton = this.page.getByRole("button", { name: "Login" });
+  readonly emailInput = this.page.locator("#emailinput");
+  readonly passwordInput = this.page.locator("#passwordinput");
+  readonly loginButton = this.page.getByRole("button", { name: "Login" });
 
-  uniqueElement = this.loginButton;
+  readonly uniqueElement = this.loginButton;
 
-  async fillCredentials(user: Partial<ISignIn>) {
-    user.email && (await this.emailInput.fill(user.email));
-    user.password && (await this.passwordInput.fill(user.password));
+  async fillCredentials({ email, password }: Partial<ICredentials>) {
+    email && (await this.emailInput.fill(email));
+    password && (await this.passwordInput.fill(password));
   }
 
   async clickLoginButton() {
