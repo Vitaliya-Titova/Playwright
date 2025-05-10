@@ -1,0 +1,42 @@
+import test, { expect } from "@playwright/test";
+import { apiConfig } from "config/api-config";
+import { USER_LOGIN, USER_PASSWORD } from "config/environment";
+import { loginSchema } from "data/schemas/login.schema";
+import { STATUS_CODES } from "data/statusCodes";
+import { validateSchema } from "utils/validations/schemaValidation";
+
+test.describe("[API] [Auth] [Login]]", () => {
+  test("Should successfully login with valid credentials", async ({ request }) => {
+    // Запрос на логин
+    const loginResponse = await request.post(apiConfig.BASE_URL + apiConfig.ENDPOINTS.LOGIN, {
+      data: { username: USER_LOGIN, password: USER_PASSWORD },
+      headers: {
+        "content-type": "application/json",
+      },
+    });
+
+    // Assert
+    const headers = loginResponse.headers();
+    const authToken = headers["authorization"];
+    const responseBody = await loginResponse.json();
+    //валидация json-схемы
+    validateSchema(loginSchema, responseBody);
+    // Проверка статус кода логина: 200 OK
+    expect.soft(loginResponse.status()).toBe(STATUS_CODES.OK);
+    // Проверка наличия токена
+    expect.soft(authToken).toBeTruthy();
+    // Проверка данных пользователя
+    expect.soft(responseBody.User).toHaveProperty("username", USER_LOGIN);
+    //expect.soft(responseBody.User).toMatchObject(expectedUser);
+    // Проверка отсутствия ошибки
+    expect.soft(responseBody.ErrorMessage).toBe(null);
+    // Проверка IsSuccess: true
+    expect.soft(responseBody.IsSuccess).toBe(true);
+  });
+});
+/* asserts:
+    1. status code
+    2. response
+    3. token
+    4. json schema
+    */
