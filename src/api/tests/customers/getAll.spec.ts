@@ -48,6 +48,7 @@ test.describe("[API] [Customers] [Get All Customers ]", () => {
     // Проверка статуса GET запроса
     expect.soft(getResponse.status()).toBe(STATUS_CODES.OK);
     // Проверка тела ответа (наличие созданного customer in arr)
+    //1var
     // проверяем ч/з some(есть ли хотя бы один true ) что есть хоть  один  customer-obj с ключом id, email,  name (выбрала основные поля)
     const isCustomerPresentId = bodyResponseAllCustomers.Customers.some((customer: { _id: string }) => customer._id === customerBody.Customer._id);
     expect.soft(isCustomerPresentId).toBe(true);
@@ -55,6 +56,9 @@ test.describe("[API] [Customers] [Get All Customers ]", () => {
     expect.soft(isCustomerPresentEmail).toBe(true);
     const isCustomerPresentName = bodyResponseAllCustomers.Customers.some((customer: { name: string }) => customer.name === customerBody.Customer.name);
     expect.soft(isCustomerPresentName).toBe(true);
+    //2var
+    const newCustomer = bodyResponseAllCustomers.Customers.find((customer: { email: string }) => customer.email === customerData.email);
+    expect.soft(newCustomer).toMatchObject({ ...customerBody.Customer });
 
     expect.soft(bodyResponseAllCustomers.ErrorMessage).toBe(null);
     expect.soft(bodyResponseAllCustomers.IsSuccess).toBe(true);

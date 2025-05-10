@@ -19,6 +19,14 @@ test.describe("[API] [Auth] [Login]]", () => {
     const headers = loginResponse.headers();
     const authToken = headers["authorization"];
     const responseBody = await loginResponse.json();
+    const expectedUser = {
+      _id: "6804f272d006ba3d475fb3e0",
+      username: "Vita",
+      firstName: "Vitaliya",
+      lastName: "Tsitova",
+      roles: ["USER"],
+      createdOn: "2025/04/20 13:11:14",
+    };
     //валидация json-схемы
     validateSchema(loginSchema, responseBody);
     // Проверка статус кода логина: 200 OK
@@ -26,6 +34,7 @@ test.describe("[API] [Auth] [Login]]", () => {
     // Проверка наличия токена
     expect.soft(authToken).toBeTruthy();
     // Проверка данных пользователя
+    expect.soft(responseBody.User).toMatchObject(expectedUser);
     expect.soft(responseBody.User).toHaveProperty("username", USER_LOGIN);
     //expect.soft(responseBody.User).toMatchObject(expectedUser);
     // Проверка отсутствия ошибки

@@ -24,12 +24,12 @@ test.describe("[API] [Customers] [Create]", () => {
     token = headers["authorization"];
     const body = await loginResponse.json();
     const expectedUser = {
-      _id: "67c4fd63735ace5b03527f81",
-      username: "test@gmail.com",
-      firstName: "Anatoly",
-      lastName: "Karpovich",
+      _id: "6804f272d006ba3d475fb3e0",
+      username: "Vita",
+      firstName: "Vitaliya",
+      lastName: "Tsitova",
       roles: ["USER"],
-      createdOn: "2025/03/03 01:52:51",
+      createdOn: "2025/04/20 13:11:14",
     };
     // Проверка статус кода логина: 200 OK
     expect.soft(loginResponse.status()).toBe(STATUS_CODES.OK);
