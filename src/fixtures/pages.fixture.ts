@@ -18,7 +18,7 @@ interface ISalesPortalPages {
 
 export const test = base.extend<ISalesPortalPages>({
   signInPage: async ({ page }, use) => {
-    await use(new SignInPage(page));
+    await use(new SignInPage(page)); //указываем то, что надо вернуть
   },
   homePage: async ({ page }, use) => {
     await use(new HomePage(page));
