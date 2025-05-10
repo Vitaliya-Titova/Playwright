@@ -57,8 +57,21 @@ test.describe("[API] [Customers] [Get All Customers ]", () => {
     const isCustomerPresentName = bodyResponseAllCustomers.Customers.some((customer: { name: string }) => customer.name === customerBody.Customer.name);
     expect.soft(isCustomerPresentName).toBe(true);
     //2var
-    const newCustomer = bodyResponseAllCustomers.Customers.find((customer: { email: string }) => customer.email === customerData.email);
-    expect.soft(newCustomer).toMatchObject({ ...customerBody.Customer });
+    // const newCustomer = bodyResponseAllCustomers.Customers.find((customer: { email: string }) => customer.email === customerData.email);
+    // expect.soft(newCustomer).toMatchObject({ ...customerBody.Customer });
+    const newCustomer = bodyResponseAllCustomers.Customers.find((customer: { _id: string }) => customer._id === customerBody.Customer._id);
+    expect.soft(newCustomer).toMatchObject({
+      email: customerData.email,
+      name: customerData.name,
+      city: customerData.city,
+      country: customerData.country,
+      flat: customerData.flat,
+      house: customerData.house,
+      notes: customerData.notes,
+    });
+    //3var
+    const { _id, createdOn, ...rest } = newCustomer;
+    expect.soft(rest).toEqual(customerData);
 
     expect.soft(bodyResponseAllCustomers.ErrorMessage).toBe(null);
     expect.soft(bodyResponseAllCustomers.IsSuccess).toBe(true);
