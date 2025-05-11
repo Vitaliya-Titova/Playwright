@@ -49,29 +49,31 @@ test.describe("[API] [Customers] [Get All Customers ]", () => {
     expect.soft(getResponse.status()).toBe(STATUS_CODES.OK);
     // Проверка тела ответа (наличие созданного customer in arr)
     //1var
-    // проверяем ч/з some(есть ли хотя бы один true ) что есть хоть  один  customer-obj с ключом id, email,  name (выбрала основные поля)
-    const isCustomerPresentId = bodyResponseAllCustomers.Customers.some((customer: { _id: string }) => customer._id === customerBody.Customer._id);
-    expect.soft(isCustomerPresentId).toBe(true);
-    const isCustomerPresentEmail = bodyResponseAllCustomers.Customers.some((customer: { email: string }) => customer.email === customerBody.Customer.email);
-    expect.soft(isCustomerPresentEmail).toBe(true);
-    const isCustomerPresentName = bodyResponseAllCustomers.Customers.some((customer: { name: string }) => customer.name === customerBody.Customer.name);
-    expect.soft(isCustomerPresentName).toBe(true);
-    //2var
-    // const newCustomer = bodyResponseAllCustomers.Customers.find((customer: { email: string }) => customer.email === customerData.email);
-    // expect.soft(newCustomer).toMatchObject({ ...customerBody.Customer });
     const newCustomer = bodyResponseAllCustomers.Customers.find((customer: { _id: string }) => customer._id === customerBody.Customer._id);
-    expect.soft(newCustomer).toMatchObject({
-      email: customerData.email,
-      name: customerData.name,
-      city: customerData.city,
-      country: customerData.country,
-      flat: customerData.flat,
-      house: customerData.house,
-      notes: customerData.notes,
-    });
-    //3var
-    const { _id, createdOn, ...rest } = newCustomer;
-    expect.soft(rest).toEqual(customerData);
+    expect.soft(newCustomer).toMatchObject(customerData as unknown as Record<string, unknown> | unknown[]);
+    //или через явное указание полей
+    // expect.soft(newCustomer).toMatchObject({
+    //   email: customerData.email,
+    //   name: customerData.name,
+    //   city: customerData.city,
+    //   country: customerData.country,
+    //   flat: customerData.flat,
+    //   house: customerData.house,
+    //   notes: customerData.notes,
+    // });
+
+    //2var
+    // проверяем ч/з some(есть ли хотя бы один true ) что есть хоть  один  customer-obj с ключом id, email,  name (выбрала основные поля)
+    // const isCustomerPresentId = bodyResponseAllCustomers.Customers.some((customer: { _id: string }) => customer._id === customerBody.Customer._id);
+    // expect.soft(isCustomerPresentId).toBe(true);
+    // const isCustomerPresentEmail = bodyResponseAllCustomers.Customers.some((customer: { email: string }) => customer.email === customerBody.Customer.email);
+    // expect.soft(isCustomerPresentEmail).toBe(true);
+    // const isCustomerPresentName = bodyResponseAllCustomers.Customers.some((customer: { name: string }) => customer.name === customerBody.Customer.name);
+    // expect.soft(isCustomerPresentName).toBe(true);
+
+    // //3var ч/з toEqual
+    // const { _id, createdOn, ...rest } = newCustomer;
+    // expect.soft(rest).toEqual(customerData);
 
     expect.soft(bodyResponseAllCustomers.ErrorMessage).toBe(null);
     expect.soft(bodyResponseAllCustomers.IsSuccess).toBe(true);
