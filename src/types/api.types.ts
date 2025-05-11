@@ -18,6 +18,4 @@ export interface IResponseFields {
   ErrorMessage: string | null;
 }
 
-export interface ILoginResponseHeaders {
-  authorization: string;
-}
+
