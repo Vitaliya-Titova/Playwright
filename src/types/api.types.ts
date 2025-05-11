@@ -17,3 +17,7 @@ export interface IResponseFields {
   IsSuccess: boolean;
   ErrorMessage: string | null;
 }
+
+export interface ILoginResponseHeaders {
+  authorization: string;
+}
