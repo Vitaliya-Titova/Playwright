@@ -50,7 +50,7 @@ test.describe("[API] [Customers] [Get By Id]", () => {
     expect.soft(body.ErrorMessage).toBe(null);
     expect.soft(body.IsSuccess).toBe(true);
 
-     // Удаление созданного customer
+    // Удаление созданного customer
     const response = await request.delete(apiConfig.BASE_URL + apiConfig.ENDPOINTS.CUSTOMER_BY_ID(customerBody.Customer._id), {
       headers: {
         Authorization: `Bearer ${token}`,
