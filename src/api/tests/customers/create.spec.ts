@@ -1,4 +1,4 @@
-import test, { expect } from "@playwright/test";
+import { test, expect } from "fixtures/contollers.fixture";
 import { apiConfig } from "config/api-config";
 import { USER_LOGIN, USER_PASSWORD } from "config/environment";
 import { generateCustomerData } from "data/customers/generateCustomerData";
@@ -6,12 +6,13 @@ import { customerSchema } from "data/schemas/customers/customer.schema";
 import { STATUS_CODES } from "data/statusCodes";
 import _ from "lodash";
 import { validateSchema } from "utils/validations/schemaValidation";
+import { validateResponse } from "utils/validations/responseValidation";
 
 test.describe("[API] [Customers] [Create]", () => {
   let id = "";
   let token = "";
 
-  test("Create customer with smoke data", async ({ request }) => {
+  test.skip("Create customer with smoke data", async ({ request }) => {
     // Запрос на логин
     const loginResponse = await request.post(apiConfig.BASE_URL + apiConfig.ENDPOINTS.LOGIN, {
       data: { username: USER_LOGIN, password: USER_PASSWORD },
@@ -79,5 +80,56 @@ test.describe("[API] [Customers] [Create]", () => {
     });
     //простая проверка по статусу, что юзер удален(тк это не оснавная цель для теста)
     expect.soft(response.status()).toBe(STATUS_CODES.DELETED);
+  });
+
+  test("Create customer with smoke data and Controller", async ({ request, customersController }) => {
+    // Запрос на логин
+    const loginResponse = await request.post(apiConfig.BASE_URL + apiConfig.ENDPOINTS.LOGIN, {
+      data: { username: USER_LOGIN, password: USER_PASSWORD },
+      headers: {
+        "content-type": "application/json",
+      },
+    });
+
+    const headers = loginResponse.headers();
+    token = headers["authorization"];
+    const body = await loginResponse.json();
+    const expectedUser = {
+      _id: "6804f272d006ba3d475fb3e0",
+      username: "Vita",
+      firstName: "Vitaliya",
+      lastName: "Tsitova",
+      roles: ["USER"],
+      createdOn: "2025/04/20 13:11:14",
+    };
+    // Проверка наличия токена
+    expect.soft(token).toBeTruthy();
+    // Проверка данных пользователя
+    expect.soft(body.User).toMatchObject(expectedUser);
+    //валидация ответа >> вынесли ErrorMessage / IsSuccess, response.status в отдельную функцию validateResponse
+    validateResponse(body, STATUS_CODES.OK, true, null);
+
+    const customerData = generateCustomerData();
+    //создание customer
+    const customerResponse = await customersController.create(customerData, token);
+    id = customerResponse.body.Customer._id;
+
+    //валидация json-схемы
+    validateSchema(customerSchema, customerResponse.body);
+    //вынесли ErrorMessage / IsSuccess, response.status в отдельную функцию validateResponse
+    // expect.soft(customerResponse.status()).toBe(STATUS_CODES.CREATED);
+    // expect.soft(body.ErrorMessage).toBe(null);
+    // expect.soft(body.IsSuccess).toBe(true);
+    //валидация ответа
+    validateResponse(customerResponse, STATUS_CODES.CREATED, true, null);
+    expect.soft(customerResponse.body.Customer).toMatchObject({ ...customerData });
+  });
+
+  //удаление созданного customer
+  //after хуки выполняются после завершения теста
+  test.afterEach(async ({ customersController }) => {
+    if (!id) return;
+    const response = await customersController.delete(id, token);
+    expect.soft(response.status).toBe(STATUS_CODES.DELETED);
   });
 });
