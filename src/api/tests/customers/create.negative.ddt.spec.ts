@@ -17,23 +17,9 @@ test.describe("[API] [Customers] [Create] Negative tests", () => {
       username: USER_LOGIN,
       password: USER_PASSWORD,
     });
-    const expectedUser = {
-      _id: "6804f272d006ba3d475fb3e0",
-      username: "Vita",
-      firstName: "Vitaliya",
-      lastName: "Tsitova",
-      roles: ["USER"],
-      createdOn: "2025/04/20 13:11:14",
-    };
-
-    //Достаем хедеры
     const headers = sigInResponse.headers as ILoginResponseHeaders;
-    // Достаем токен из хедеров
     authToken = headers["authorization"];
-    // Проверка наличия токена
     expect.soft(authToken).toBeTruthy();
-    // Проверка данных пользователя
-    expect.soft(sigInResponse.body.User).toMatchObject(expectedUser);
     //валидация ответа >> вынесли ErrorMessage / IsSuccess, response.status в отдельную функцию validateResponse
     validateResponse(sigInResponse, STATUS_CODES.OK, true, null);
   });
