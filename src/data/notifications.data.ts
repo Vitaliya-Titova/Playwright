@@ -4,5 +4,6 @@ export const NOTIFICATIONS = {
   CUSTOMER_EDIT: "Customer was successfully updated",
   CUSTOMER_DELETED: "Customer was successfully deleted",
 };
+export const ERROR_NOTIFICATIONS = { INCORRECT_REQUEST_BODY: "Incorrect request body" };
 
 export const EMPTY_TABLE_ROW_TEXT = "No records created yet";

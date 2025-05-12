@@ -8,7 +8,7 @@ import _ from "lodash";
 import { validateSchema } from "utils/validations/schemaValidation";
 import { validateResponse } from "utils/validations/responseValidation";
 import { SignInController } from "api/controllers/signIn.controller";
-import { ILoginResponseHeaders } from "types/api.types";
+import { ILoginResponseHeaders } from "types/signIn.types";
 
 test.describe("[API] [Customers] [Create]", () => {
   let id = "";
