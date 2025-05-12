@@ -1,14 +1,16 @@
 import { test, expect } from "fixtures/contollers.fixture";
+import { apiConfig } from "config/api-config";
 import { USER_LOGIN, USER_PASSWORD } from "config/environment";
+import { customerSchema } from "data/schemas/customers/customer.schema";
 import { STATUS_CODES } from "data/statusCodes";
 import _ from "lodash";
 import { validateSchema } from "utils/validations/schemaValidation";
 import { validateResponse } from "utils/validations/responseValidation";
 import { ILoginResponseHeaders } from "types/signIn.types";
-import { regInvalidTestData } from "data/customers/create.invalid.data";
-import { invalidCreationCustomerSchema } from "data/schemas/customers/invalidCreation.customer";
+import { regValidTestData } from "data/customers/create.valid.data";
 
-test.describe("[API] [Customers] [Create] Negative tests", () => {
+test.describe("[API] [Customers] [Create] Positive tests", () => {
+  let id = "";
   let authToken = "";
 
   //login
@@ -38,18 +40,25 @@ test.describe("[API] [Customers] [Create] Negative tests", () => {
     validateResponse(sigInResponse, STATUS_CODES.OK, true, null);
   });
 
-  //DDT negative tests
-  regInvalidTestData.forEach(({ testName, invalidCreationCustomerData, message, statusCode }) => {
+  //DDT positive tests
+  regValidTestData.forEach(({ testName, validCreationCustomerData }) => {
     test(testName, async ({ customersController }) => {
       //создание customer
-      const customerResponse = await customersController.createMissingFields(invalidCreationCustomerData, authToken);
-
+      const customerResponse = await customersController.createMissingFields(validCreationCustomerData, authToken);
+      id = customerResponse.body.Customer._id;
       //валидация json-схемы
-      validateSchema(invalidCreationCustomerSchema, customerResponse.body);
+      validateSchema(customerSchema, customerResponse.body);
       //asserts
-      expect.soft(customerResponse.status).toBe(statusCode);
-      expect.soft(customerResponse.body.ErrorMessage).toBe(message);
-      expect.soft(customerResponse.body.IsSuccess).toBe(false);
+      validateResponse(customerResponse, STATUS_CODES.CREATED, true, null);
+      //expect.soft(customerResponse.body.Customer).toMatchObject({ ...customerData });
     });
+  });
+
+  //удаление созданного customer
+  //after хуки выполняются после завершения теста
+  test.afterEach(async ({ customersController }) => {
+    if (!id) return;
+    const response = await customersController.delete(id, authToken);
+    expect.soft(response.status).toBe(STATUS_CODES.DELETED);
   });
 });

@@ -32,5 +32,10 @@ export interface ICreateInvalidDataCustomer {
   statusCode: STATUS_CODES;
 }
 
+export interface ICreateValidDataCustomer {
+  testName: string;
+  validCreationCustomerData: ICustomer;
+}
+
 //объект, который имеет только три свойства из исходного типа ICustomer
 export type ICustomerInTable = Pick<ICustomer, "email" | "country" | "name">;
