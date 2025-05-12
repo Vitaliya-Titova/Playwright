@@ -37,7 +37,7 @@ test.describe("[API] [Customers] [Create] Positive tests", () => {
       validateSchema(customerSchema, customerResponse.body);
       //asserts
       validateResponse(customerResponse, STATUS_CODES.CREATED, true, null);
-      //expect.soft(customerResponse.body.Customer).toMatchObject({ ...customerData });
+      expect.soft(customerResponse.body.Customer).toMatchObject({ ...validCreationCustomerData });
     });
   });
 
