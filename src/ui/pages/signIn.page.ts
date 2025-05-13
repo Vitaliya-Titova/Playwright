@@ -8,8 +8,8 @@ export class SignInPage extends SalesPortalPage {
 
   readonly uniqueElement = this.loginButton;
 
-  async fillCredentials({ email, password }: Partial<ICredentials>) {
-    email && (await this.emailInput.fill(email));
+  async fillCredentials({ username, password }: Partial<ICredentials>) {
+    username && (await this.emailInput.fill(username));
     password && (await this.passwordInput.fill(password));
   }
 

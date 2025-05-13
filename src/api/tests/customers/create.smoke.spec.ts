@@ -7,7 +7,6 @@ import { STATUS_CODES } from "data/statusCodes";
 import _ from "lodash";
 import { validateSchema } from "utils/validations/schemaValidation";
 import { validateResponse } from "utils/validations/responseValidation";
-import { ILoginResponseHeaders } from "types/signIn.types";
 
 test.describe("[API] [Customers] [Create]", () => {
   let id = "";
@@ -88,7 +87,7 @@ test.describe("[API] [Customers] [Create]", () => {
       username: USER_LOGIN,
       password: USER_PASSWORD,
     });
-    const headers = sigInResponse.headers as ILoginResponseHeaders;
+    const headers = sigInResponse.headers;
     authToken = headers["authorization"];
     expect.soft(authToken).toBeTruthy();
     expect.soft(sigInResponse.status).toBe(STATUS_CODES.OK);

@@ -3,7 +3,6 @@ import { apiConfig } from "config/api-config";
 import { USER_LOGIN, USER_PASSWORD } from "config/environment";
 import { loginSchema } from "data/schemas/login.schema";
 import { STATUS_CODES } from "data/statusCodes";
-import { ILoginResponseHeaders } from "types/signIn.types";
 import { validateSchema } from "utils/validations/schemaValidation";
 
 test.describe("[API] [Auth] [Login]]", () => {
@@ -60,7 +59,8 @@ test.describe("[API] [Auth] [Login]]", () => {
       createdOn: "2025/04/20 13:11:14",
     };
     // Assert
-    const headers = sigInResponse.headers as ILoginResponseHeaders;
+
+    const headers = sigInResponse.headers;
     // Достаем токен из хедеров
     const authToken = headers["authorization"];
     // Проверка наличия токена

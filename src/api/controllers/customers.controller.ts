@@ -23,20 +23,6 @@ export class CustomersController {
     };
     return await this.request.send<ICustomerResponse>(options);
   }
-  //create customer with partial fields
-  async createMissingFields(body: Partial<ICustomer>, token: string) {
-    const options: IRequestOptions = {
-      url: apiConfig.ENDPOINTS.CUSTOMERS,
-      method: "post",
-      data: body,
-      //постоянные headers
-      headers: {
-        "content-type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-    };
-    return await this.request.send<ICustomerResponse>(options);
-  }
 
   //получение customer по id
   async getById(id: string, token: string) {

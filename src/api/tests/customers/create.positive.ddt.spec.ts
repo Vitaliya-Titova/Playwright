@@ -1,12 +1,10 @@
 import { test, expect } from "fixtures/contollers.fixture";
-import { apiConfig } from "config/api-config";
 import { USER_LOGIN, USER_PASSWORD } from "config/environment";
 import { customerSchema } from "data/schemas/customers/customer.schema";
 import { STATUS_CODES } from "data/statusCodes";
 import _ from "lodash";
 import { validateSchema } from "utils/validations/schemaValidation";
 import { validateResponse } from "utils/validations/responseValidation";
-import { ILoginResponseHeaders } from "types/signIn.types";
 import { regValidTestData } from "data/customers/create.valid.data";
 
 test.describe("[API] [Customers] [Create] Positive tests", () => {
@@ -20,7 +18,7 @@ test.describe("[API] [Customers] [Create] Positive tests", () => {
       password: USER_PASSWORD,
     });
 
-    const headers = sigInResponse.headers as ILoginResponseHeaders;
+    const headers = sigInResponse.headers;
     authToken = headers["authorization"];
     expect.soft(authToken).toBeTruthy();
     //валидация ответа >> вынесли ErrorMessage / IsSuccess, response.status в отдельную функцию validateResponse
@@ -31,7 +29,7 @@ test.describe("[API] [Customers] [Create] Positive tests", () => {
   regValidTestData.forEach(({ testName, validCreationCustomerData }) => {
     test(testName, async ({ customersController }) => {
       //создание customer
-      const customerResponse = await customersController.createMissingFields(validCreationCustomerData, authToken);
+      const customerResponse = await customersController.create(validCreationCustomerData, authToken);
       id = customerResponse.body.Customer._id;
       //валидация json-схемы
       validateSchema(customerSchema, customerResponse.body);

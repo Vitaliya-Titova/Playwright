@@ -4,9 +4,9 @@ import { STATUS_CODES } from "data/statusCodes";
 import _ from "lodash";
 import { validateSchema } from "utils/validations/schemaValidation";
 import { validateResponse } from "utils/validations/responseValidation";
-import { ILoginResponseHeaders } from "types/signIn.types";
 import { regInvalidTestData } from "data/customers/create.invalid.data";
 import { invalidCreationCustomerSchema } from "data/schemas/customers/invalidCreation.customer";
+import { ICustomer } from "types/customer.types";
 
 test.describe("[API] [Customers] [Create] Negative tests", () => {
   let authToken = "";
@@ -17,7 +17,7 @@ test.describe("[API] [Customers] [Create] Negative tests", () => {
       username: USER_LOGIN,
       password: USER_PASSWORD,
     });
-    const headers = sigInResponse.headers as ILoginResponseHeaders;
+    const headers = sigInResponse.headers;
     authToken = headers["authorization"];
     expect.soft(authToken).toBeTruthy();
     //валидация ответа >> вынесли ErrorMessage / IsSuccess, response.status в отдельную функцию validateResponse
@@ -28,7 +28,8 @@ test.describe("[API] [Customers] [Create] Negative tests", () => {
   regInvalidTestData.forEach(({ testName, invalidCreationCustomerData, message, statusCode }) => {
     test(testName, async ({ customersController }) => {
       //создание customer
-      const customerResponse = await customersController.createMissingFields(invalidCreationCustomerData, authToken);
+      //type assertion: Приводим Partial<ICustomer> к ICustomer,чтобы не было ошибки в create из-за отсутвия некоторых полей в тестах
+      const customerResponse = await customersController.create(invalidCreationCustomerData as ICustomer, authToken);
 
       //валидация json-схемы
       validateSchema(invalidCreationCustomerSchema, customerResponse.body);

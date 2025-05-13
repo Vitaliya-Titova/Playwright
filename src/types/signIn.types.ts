@@ -10,7 +10,3 @@ export interface ICredentials {
 export interface ILoginFromResponse extends IResponseFields {
   User: object;
 }
-
-export interface ILoginResponseHeaders {
-  authorization: string;
-}

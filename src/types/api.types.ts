@@ -8,7 +8,7 @@ export interface IRequestOptions {
 
 export interface IResponse<T extends object | null> {
   status: number;
-  headers: object;
+  headers: Record<string, string>;
   body: T; //дженерик > для каждого endpoint body будет затипизировано по своему
 }
 
@@ -17,5 +17,3 @@ export interface IResponseFields {
   IsSuccess: boolean;
   ErrorMessage: string | null;
 }
-
-
