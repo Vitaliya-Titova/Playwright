@@ -4,6 +4,7 @@ import { COUNTRIES } from "data/customers/countries.data";
 import { FilterModal } from "../modals/customers/filter.modal";
 import { expect } from "fixtures/pages.fixture";
 import { DeleteCustomerModal } from "../modals/customers/delete.modal";
+import { customersSortField } from "types/api.types";
 
 export class CustomersPage extends SalesPortalPage {
   //modals
@@ -23,8 +24,11 @@ export class CustomersPage extends SalesPortalPage {
   //filter - modal window
   readonly filterButton = this.page.getByRole("button", { name: "Filter" });
 
+  //table
+  readonly table = this.page.locator("#table-customers");
+
   //table -headers
-  readonly tableHeader = this.page.locator("#table-customers th div");
+  readonly tableHeader = this.page.locator("#table-customers th div[current]");
   readonly emailHeader = this.tableHeader.filter({ hasText: "Email" });
   readonly nameHeader = this.tableHeader.filter({ hasText: "Name" });
   readonly countryHeader = this.tableHeader.filter({ hasText: "Country" });
@@ -43,6 +47,14 @@ export class CustomersPage extends SalesPortalPage {
   readonly emptyTableRow = this.page.locator("td.fs-italic");
 
   readonly uniqueElement = this.addNewCustomerButton;
+
+  async open() {
+    // Выполняет fun renderCustomersPage в контексте браузера и ожидает её завершения
+    await this.page.evaluate(async () => {
+      //Приводит объект 'window' к типу, который включает  fun renderCustomersPage и вызывает её.
+      await (window as typeof window & { renderCustomersPage: () => Promise<void> }).renderCustomersPage();
+    });
+  }
 
   async clickAddNewCustomer() {
     await this.addNewCustomerButton.click();
@@ -124,6 +136,24 @@ export class CustomersPage extends SalesPortalPage {
     await this.fillSearch(value);
     await this.clickSearch();
     await this.waitForOpened();
+  }
+
+  //клик по хедерам таблицы customers
+  async clickTableHeader(header: customersSortField) {
+    switch (header) {
+      case "email":
+        await this.emailHeader.click();
+        break;
+      case "name":
+        await this.nameHeader.click();
+        break;
+      case "country":
+        await this.countryHeader.click();
+        break;
+      case "createdOn":
+        await this.createdOnHeader.click();
+        break;
+    }
   }
 
   //hw21

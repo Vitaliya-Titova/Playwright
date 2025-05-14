@@ -1,5 +1,5 @@
 import { COUNTRIES } from "data/customers/countries.data";
-import { IResponseFields } from "./api.types";
+import { customersSortField, IResponseFields, sortDirection } from "./api.types";
 import { STATUS_CODES } from "data/statusCodes";
 
 export interface ICustomer {
@@ -24,6 +24,10 @@ export interface ICustomerResponse extends IResponseFields {
 
 export interface ICustomersResponse extends IResponseFields {
   Customers: ICustomerFromResponse[];
+  sorting: {
+    sortField: customersSortField;
+    sortOrder: sortDirection;
+  };
 }
 export interface ICreateInvalidDataCustomer {
   testName: string;

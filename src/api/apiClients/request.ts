@@ -3,6 +3,8 @@ import { apiConfig } from "config/api-config";
 import _ from "lodash";
 import { IRequestOptions, IResponse } from "types/api.types";
 
+//ооснова для всех API-запросов в тестах. Он используется в контроллерах (SignInController, CustomersController)
+// для выполнения запросов
 export class RequestApi {
   // Приватное поле для хранения последнего полученного объекта APIResponse
   private response: APIResponse | undefined;
