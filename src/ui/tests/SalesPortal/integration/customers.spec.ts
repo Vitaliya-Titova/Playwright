@@ -56,7 +56,11 @@ test.describe("[UI] [Customers] [Table component]", async () => {
     //   customersPage.clickTableHeader("createdOn"),
     // ]);
     //через bind обязательно нужно привязать контекс
-    const request = await customersPage.interceptRequest(apiConfig.ENDPOINTS.CUSTOMERS, customersPage.clickTableHeader.bind(customersPage), "createdOn");
+    const request = await customersPage.interceptRequest(
+      apiConfig.ENDPOINTS.CUSTOMERS,
+      customersPage.clickTableHeader.bind(customersPage),
+      "createdOn"
+    );
     expect(request.url()).toBe(`${apiConfig.BASE_URL}/${apiConfig.ENDPOINTS.CUSTOMERS}?sortField=createdOn&sortOrder=asc`);
   });
 });
