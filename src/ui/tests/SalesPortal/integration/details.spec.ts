@@ -6,7 +6,7 @@ import { convertToDateAndTime } from "utils/date.utils";
 test.describe("[UI] [Customers] [Details]", async () => {
   test("Should display valid customer data", async ({ loginAsLocalUser, homePage, customersPage, customerDetailsPage, mock, page }) => {
     const expected = {
-      email: "aaa@gmail.com",
+      email: "Vita_test2@domain.com",
       name: "Anatoly Karpovich",
       country: "USA" as COUNTRIES,
       city: "Warszawa",
@@ -17,7 +17,7 @@ test.describe("[UI] [Customers] [Details]", async () => {
       createdOn: "2025-05-13T17:33:12.000Z",
       notes: "asdasda",
     };
-    const id = "68238258d006ba3d47613e8d"; //  ID customer, для которого запрашиваются детали
+    const id = "6827ada2d006ba3d47617a27"; //  ID customer, для которого запрашиваются детали
 
     // await mock.customers({
     //   Customers: [
@@ -47,6 +47,7 @@ test.describe("[UI] [Customers] [Details]", async () => {
     //     window as typeof window & { renderCustomerDetailsPage: (id: string) => Promise<void> }
     //   ).renderCustomerDetailsPage(id);
     // }, id);
+
     // Открытие страницы деталей customer по  ID
     await customerDetailsPage.open(id);
     await customerDetailsPage.waitForOpened();
