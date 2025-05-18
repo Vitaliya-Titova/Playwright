@@ -3,8 +3,8 @@ export type ModuleName = "Customers" | "Products" | "Orders";
 export interface OrdersMetrics {
   totalRevenue: number;
   totalOrders: number;
-  avgOrderValue: number;
-  canceledOrders: number;
+  averageOrderValue: number;
+  totalCanceledOrders: number;
 }
 
 export interface MetricsResponse {
@@ -12,11 +12,10 @@ export interface MetricsResponse {
   ErrorMessage: string | null;
   Metrics: {
     orders: {
-      canceledOrders: number;
+      totalCanceledOrders: number;
       totalRevenue: number;
       totalOrders: number;
-      avgOrderValue: number;
-
+      averageOrderValue: number;
       ordersCountPerDay: Array<{}>;
       recentOrders: Array<{}>;
     };
