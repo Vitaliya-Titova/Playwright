@@ -12,6 +12,7 @@ export class CustomersController {
   //create customer
   async create(body: ICustomer, token: string) {
     const options: IRequestOptions = {
+      baseURL: apiConfig.BASE_URL,
       url: apiConfig.ENDPOINTS.CUSTOMERS,
       method: "post",
       data: body,
@@ -27,6 +28,7 @@ export class CustomersController {
   //получение customer по id
   async getById(id: string, token: string) {
     const options: IRequestOptions = {
+      baseURL: apiConfig.BASE_URL,
       url: apiConfig.ENDPOINTS.CUSTOMER_BY_ID(id),
       method: "get",
       headers: {
@@ -39,6 +41,7 @@ export class CustomersController {
   //получение всех customers + фильтр парам в урле
   async getAll(token: string, params?: Record<string, string>) {
     const options: IRequestOptions = {
+      baseURL: apiConfig.BASE_URL,
       url: apiConfig.ENDPOINTS.CUSTOMERS + (params ? convertRequestParams(params) : ""),
       method: "get",
       headers: {
@@ -52,6 +55,7 @@ export class CustomersController {
   //обновление данных customer по его id
   async update(id: string, body: ICustomer, token: string) {
     const options: IRequestOptions = {
+      baseURL: apiConfig.BASE_URL,
       url: apiConfig.ENDPOINTS.CUSTOMER_BY_ID(id),
       method: "put",
       data: body,
@@ -66,6 +70,7 @@ export class CustomersController {
   //удаление customer по его id
   async delete(id: string, token: string) {
     const options: IRequestOptions = {
+      baseURL: apiConfig.BASE_URL,
       url: apiConfig.ENDPOINTS.CUSTOMER_BY_ID(id),
       method: "delete",
       headers: {

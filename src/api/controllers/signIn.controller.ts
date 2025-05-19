@@ -9,6 +9,7 @@ export class SignInController {
   //login
   async signIn(body: ICredentials) {
     const options: IRequestOptions = {
+      baseURL: apiConfig.BASE_URL,
       url: apiConfig.ENDPOINTS.LOGIN,
       method: "post",
       data: body,

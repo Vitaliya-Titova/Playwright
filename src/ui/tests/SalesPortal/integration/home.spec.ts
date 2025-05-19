@@ -32,10 +32,7 @@ test.describe("[UI] [Home] [Metrics]", async () => {
     await loginAsLocalUser();
     await homePage.waitForOpened();
 
-    console.log("Mock Data:", mockData);
-
     const metrics = await homePage.getMetricsOrders();
-    console.log("order", metrics);
 
     // Проверяем, что метрики  отображают правильную сумму
     expect.soft(metrics.totalOrders).toBe(mockData.Metrics.orders.totalOrders);
