@@ -21,3 +21,5 @@ export interface IResponseFields {
 export type sortDirection = "asc" | "desc";
 
 export type customersSortField = "createdOn" | "email" | "name" | "country";
+
+export type productSortField = "createdOn" | "name" | "price" | "manufacturer";

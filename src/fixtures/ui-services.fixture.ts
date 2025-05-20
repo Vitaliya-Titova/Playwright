@@ -3,6 +3,8 @@ import { AddNewCustomerUiService } from "ui/services (business)/customers/add-ne
 import { CustomersUIService } from "ui/services (business)/customers/customers.ui-service";
 import { EditCustomerUiService } from "ui/services (business)/customers/edit-customer.ui-service";
 import { HomeUIService } from "ui/services (business)/home.ui-service";
+import { AddNewProductUiService } from "ui/services (business)/products/add-new-product.ui-service";
+import { ProductsUIService } from "ui/services (business)/products/products.ui-service";
 import { SignInUIService } from "ui/services (business)/signIn.ui-serivice";
 
 interface IUIServices {
@@ -11,6 +13,8 @@ interface IUIServices {
   customersUIService: CustomersUIService;
   addNewCustomerUIService: AddNewCustomerUiService;
   editCustomerUIService: EditCustomerUiService;
+  addNewProductUiService: AddNewProductUiService;
+  productsUIService: ProductsUIService;
 }
 
 export const test = base.extend<IUIServices>({
@@ -28,6 +32,12 @@ export const test = base.extend<IUIServices>({
   },
   editCustomerUIService: async ({ page }, use) => {
     await use(new EditCustomerUiService(page));
+  },
+  addNewProductUiService: async ({ page }, use) => {
+    await use(new AddNewProductUiService(page));
+  },
+  productsUIService: async ({ page }, use) => {
+    await use(new ProductsUIService(page));
   },
 });
 

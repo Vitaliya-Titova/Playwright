@@ -12,7 +12,7 @@ export class CustomersApiService {
   constructor(request: APIRequestContext) {
     this.controller = new CustomersController();
   }
-//метод создаем кастомера, и валидирует его. Отдает json кастомера
+//метод создает кастомера, и валидирует его. Отдает json кастомера
   async create(token: string, customData?: ICustomer) {
     const body = generateCustomerData(customData);
     const response = await this.controller.create(body, token);

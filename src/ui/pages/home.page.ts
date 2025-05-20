@@ -39,9 +39,9 @@ export class HomePage extends SalesPortalPage {
     ]);
     return {
       totalOrders: +totalOrders, //преобразуем метрики в числа
-      totalRevenue: numeral(totalRevenue.trim()).value() ?? 10,
+      totalRevenue: numeral(totalRevenue.trim()).value() ?? 0,
       totalCanceledOrders: +totalCanceledOrders,
-      averageOrderValue: numeral(averageOrderValue.trim()).value() ?? 10,
+      averageOrderValue: numeral(averageOrderValue.trim()).value() ?? 0,
       // totalRevenue: +totalRevenue.trim().replace(/[^0-9.]/g, ""),
       // avgOrderValue: +avgOrderValue.trim().replace(/[^0-9.]/g, ""),
     };
