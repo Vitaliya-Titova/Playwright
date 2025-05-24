@@ -5,6 +5,7 @@ import { productSortField } from "types/api.types";
 import { IProductInTable } from "types/products.type";
 import { MANUFACTURER } from "data/products/manufacturer.data";
 import numeral from "numeral";
+import { ProductDetailsModal } from "../modals/products/productDetails.modal";
 
 export class ProductsPage extends SalesPortalPage {
   //modals
@@ -36,7 +37,7 @@ export class ProductsPage extends SalesPortalPage {
 
   //table -row
   readonly tableRow = this.page.locator("#table-products tbody tr");
-  readonly tableRowByName = (name: string) => this.tableRow.filter({ has: this.page.getByText(name) });
+  readonly tableRowByName = (name: string) => this.tableRow.filter({ has: this.page.getByText(name, { exact: true }) }); //точное совпадение name
   readonly nameCell = (name: string) => this.tableRowByName(name).locator("td").nth(0);
   readonly priceCell = (name: string) => this.tableRowByName(name).locator("td").nth(1);
   readonly manufacturerCell = (name: string) => this.tableRowByName(name).locator("td").nth(2);
@@ -45,6 +46,9 @@ export class ProductsPage extends SalesPortalPage {
   readonly detailsButton = (name: string) => this.tableRowByName(name).getByTitle("Details");
   readonly deleteButton = (name: string) => this.tableRowByName(name).getByTitle("Delete");
   readonly emptyTableRow = this.page.locator("td.fs-italic");
+
+  //detailsModal
+  readonly detailsModal = new ProductDetailsModal(this.page);
 
   readonly uniqueElement = this.addNewProductButton;
 
@@ -76,6 +80,11 @@ export class ProductsPage extends SalesPortalPage {
     };
 
     await buttons[action].click();
+  }
+
+  async clickDetails(name: string) {
+    await this.detailsButton(name).click();
+    await this.detailsModal.waitForOpened();
   }
 
   async getProductData(productName: string): Promise<IProductInTable> {

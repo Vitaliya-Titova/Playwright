@@ -15,6 +15,7 @@ export class CustomerDetailsPage extends SalesPortalPage {
   registrationDate = this.page.locator("#customer-created-on");
   uniqueElement = this.registrationDate;
 
+  //этим методом (редкий метод, чаще просто по url) можно перейти на стр находясь на любой странице сайта
   // Открывает страницу деталей клиента, вызывая функцию renderCustomerDetailsPage
   async open(id: string) {
     await this.page.evaluate(async (id: string) => {
@@ -22,6 +23,7 @@ export class CustomerDetailsPage extends SalesPortalPage {
       // Приводит объект 'window' к типу, который включает fun renderCustomerDetailsPage и вызывает её с переданным 'id'.
       await (window as typeof window & { renderCustomerDetailsPage: (id: string) => Promise<void> }).renderCustomerDetailsPage(id);
     }, id);
+    //без типизации: await window.renderCustomerDetailsPage(id)
   }
 
   async getDetails(): Promise<ICustomer & { createdOn: string }> {

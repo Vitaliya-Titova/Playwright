@@ -21,11 +21,9 @@ export class HomeUIService {
       case "Customers":
         await this.customersPage.waitForOpened();
         break;
-    }
-    switch (moduleName) {
+
       case "Products":
         await this.productsPage.waitForOpened();
-        break;
     }
   }
 }
