@@ -5,6 +5,9 @@ import { HomePage } from "ui/pages/home.page";
 import { AddNewProductPage } from "ui/pages/products/add-new-product.page";
 import { ProductsPage } from "ui/pages/products/products.page";
 
+//2 подхода организации фикстур для Page Objects:
+//1й подход сlass Pages,(2й подход pages.fixture) у которого все поля публичные, инстансы страниц, из фикстуры экспортируем объект Pages
+//вызов await Pages.страница
 export class Pages {
   public homePage: HomePage;
   public customersPage: CustomersPage;

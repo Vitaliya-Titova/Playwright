@@ -5,7 +5,7 @@ import { IProduct, IProductResponse, IProductsResponse } from "types/products.ty
 
 import { convertRequestParams } from "utils/requestParams";
 
-//описывает работу с customers
+//описывает работу с product
 export class ProductController {
   //связываем с RequestApi(класс по отправке запросов)
   constructor(private request = new RequestApi()) {}

@@ -8,11 +8,11 @@ import { validateResponse } from "utils/validations/responseValidation";
 //ProductsApiService упрощает процесс создания новых продуктов через API в тестах,
 //скрывает детали формирования тела запроса и валидации базового ответа.
 export class ProductsApiService {
-  controller: ProductController;
+  private controller: ProductController;
   constructor(request: APIRequestContext) {
     this.controller = new ProductController();
   }
-  //метод создает продукт, и валидирует его. Отдает json продукта
+  //метод создает продукт, и валидирует его. Отдает объект продукта
   // - Генерирует или принимает данные продукта
   // - Вызывает контроллер для отправки запроса
   // - Валидирует общий ответ API
