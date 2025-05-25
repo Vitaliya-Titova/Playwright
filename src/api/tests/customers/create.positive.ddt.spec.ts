@@ -6,6 +6,7 @@ import _ from "lodash";
 import { validateSchema } from "utils/validations/schemaValidation";
 import { validateResponse } from "utils/validations/responseValidation";
 import { regValidTestData } from "data/customers/create.valid.data";
+import { TAGS } from "data/tages";
 
 test.describe("[API] [Customers] [Create] Positive tests", () => {
   let id = "";
@@ -27,15 +28,19 @@ test.describe("[API] [Customers] [Create] Positive tests", () => {
 
   //DDT positive tests
   regValidTestData.forEach(({ testName, validCreationCustomerData }) => {
-    test(testName, async ({ customersController }) => {
+    test(testName, { tag: [TAGS.API, TAGS.REGRESSION] }, async ({ customersController }) => {
       //создание customer
       const customerResponse = await customersController.create(validCreationCustomerData, authToken);
       id = customerResponse.body.Customer._id;
       //валидация json-схемы
-      validateSchema(customerSchema, customerResponse.body);
+      test.step("Validate  response JSON schema", async () => {
+        validateSchema(customerSchema, customerResponse.body);
+      });
       //asserts
-      validateResponse(customerResponse, STATUS_CODES.CREATED, true, null);
-      expect.soft(customerResponse.body.Customer).toMatchObject({ ...validCreationCustomerData });
+      test.step("Check successful customer creation via API", async () => {
+        validateResponse(customerResponse, STATUS_CODES.CREATED, true, null);
+        expect.soft(customerResponse.body.Customer).toMatchObject({ ...validCreationCustomerData });
+      });
     });
   });
 

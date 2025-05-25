@@ -4,9 +4,10 @@ import { USER_LOGIN, USER_PASSWORD } from "config/environment";
 import { loginSchema } from "data/schemas/login.schema";
 import { STATUS_CODES } from "data/statusCodes";
 import { validateSchema } from "utils/validations/schemaValidation";
+import { TAGS } from "data/tages";
 
 test.describe("[API] [Auth] [Login]]", () => {
-  test.skip("Should successfully login with valid credentials", async ({ request }) => {
+  test.skip("Should successfully login with valid credentials", { tag: [TAGS.SMOKE, TAGS.API] }, async ({ request }) => {
     // Запрос на логин
     const loginResponse = await request.post(apiConfig.BASE_URL + apiConfig.ENDPOINTS.LOGIN, {
       data: { username: USER_LOGIN, password: USER_PASSWORD },
@@ -43,7 +44,7 @@ test.describe("[API] [Auth] [Login]]", () => {
     expect.soft(responseBody.IsSuccess).toBe(true);
   });
 
-  test("Should successfully login with valid credentials and Controller", async ({ loginController }) => {
+  test("Should successfully login with valid credentials and Controller", { tag: [TAGS.SMOKE, TAGS.API] }, async ({ loginController }) => {
     // Запрос на логин
     const sigInResponse = await loginController.signIn({
       username: USER_LOGIN,

@@ -11,7 +11,7 @@ export class CustomersController {
   constructor(private request = new RequestApi()) {}
 
   //create customer
-  @logStep()
+  @logStep("API: Create Customer")
   async create(body: ICustomer, token: string) {
     const options: IRequestOptions = {
       baseURL: apiConfig.BASE_URL,
@@ -28,7 +28,7 @@ export class CustomersController {
   }
 
   //получение customer по id
-  @logStep()
+  @logStep("API: Get Customer by ID")
   async getById(id: string, token: string) {
     const options: IRequestOptions = {
       baseURL: apiConfig.BASE_URL,
@@ -43,7 +43,7 @@ export class CustomersController {
   }
 
   //получение всех customers + фильтр парам в урле
-  @logStep()
+  @logStep("API: Get All Customers")
   async getAll(token: string, params?: Record<string, string>) {
     const options: IRequestOptions = {
       baseURL: apiConfig.BASE_URL,
@@ -58,7 +58,7 @@ export class CustomersController {
   }
 
   //обновление данных customer по его id
-  @logStep()
+  @logStep("API: Update  Customer data")
   async update(id: string, body: ICustomer, token: string) {
     const options: IRequestOptions = {
       baseURL: apiConfig.BASE_URL,
@@ -74,7 +74,7 @@ export class CustomersController {
   }
 
   //удаление customer по его id
-  @logStep()
+  @logStep("API: Delete  Customer by ID")
   async delete(id: string, token: string) {
     const options: IRequestOptions = {
       baseURL: apiConfig.BASE_URL,
