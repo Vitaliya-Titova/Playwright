@@ -1,10 +1,10 @@
 import { apiConfig } from "config/api-config";
 import { COUNTRIES } from "data/customers/countries.data";
-import { expect, test } from "fixtures/businessSteps.fixture";
+import { expect, test } from "fixtures/ui-services.fixture";
 import { convertToDateAndTime } from "utils/date.utils";
 
 test.describe("[UI] [Customers] [Details]", async () => {
-  test("Should display valid customer data", async ({ loginAsLocalUser, homePage, customersPage, customerDetailsPage, mock, page }) => {
+  test("Should display valid customer data", async ({ homeUIService, customersPage, customerDetailsPage, mock, page }) => {
     const expected = {
       email: "Vita_test2@domain.com",
       name: "Anatoly Karpovich",
@@ -37,7 +37,8 @@ test.describe("[UI] [Customers] [Details]", async () => {
     // Мокирование API-запроса для получения деталей customer по ID
     await mock.customerDetails({ Customer: { _id: id, ...expected }, ErrorMessage: null, IsSuccess: true });
 
-    await loginAsLocalUser();
+    //await loginAsLocalUser(); - заменяем на контекст логин
+    await homeUIService.openAsLoggedInUser();
     // await homePage.clickModuleButton("Customers");
     // await customersPage.waitForOpened();
 

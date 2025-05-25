@@ -8,3 +8,4 @@ node_modules/
 .DS_Store
 .prettierrc
 .env
+src/.auth/user.json

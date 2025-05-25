@@ -16,8 +16,8 @@ test.describe("[E2E] SignIn and Customer Creation", () => {
 
     //Sign IN
     await page.goto(SALES_PORTAL_URL);
-    await signInPage.fillCredentials({ username: USER_LOGIN, password: USER_PASSWORD });
-    await signInPage.clickLoginButton();
+    // await signInPage.fillCredentials({ username: USER_LOGIN, password: USER_PASSWORD });
+    // await signInPage.clickLoginButton();
 
     //Go to Customer Page and create Customer
 

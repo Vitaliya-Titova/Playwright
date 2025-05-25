@@ -5,6 +5,7 @@ import { FilterModal } from "../modals/customers/filter.modal";
 import { expect } from "fixtures/pages.fixture";
 import { DeleteCustomerModal } from "../modals/customers/delete.modal";
 import { customersSortField } from "types/api.types";
+import { logStep } from "utils/reporter.utils";
 
 export class CustomersPage extends SalesPortalPage {
   //modals
@@ -56,18 +57,22 @@ export class CustomersPage extends SalesPortalPage {
     });
   }
 
+  @logStep("Click on Add New Customer button")
   async clickAddNewCustomer() {
     await this.addNewCustomerButton.click();
   }
 
+  @logStep("Click on Delete Customer button")
   async clickDeleteCustomer(customerEmail: string) {
     await this.deleteButton(customerEmail).click();
   }
 
+  @logStep("Click on Filter Button on Customer Page")
   async clickFilter() {
     await this.filterButton.click();
   }
 
+  @logStep("Click on Table Action")
   async clickTableAction(customerEmail: string, action: "edit" | "details" | "delete") {
     const buttons = {
       edit: this.editButton(customerEmail),

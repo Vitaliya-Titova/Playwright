@@ -1,5 +1,6 @@
 import { ICustomer } from "types/customer.types";
 import { SalesPortalPage } from "../salePortal.page";
+import { logStep } from "utils/reporter.utils";
 
 export class AddNewCustomerPage extends SalesPortalPage {
   readonly emailInput = this.page.locator("#inputEmail");
@@ -15,6 +16,7 @@ export class AddNewCustomerPage extends SalesPortalPage {
 
   readonly uniqueElement = this.saveNewCustomerButton;
 
+  @logStep("Fill New Customer inputs")
   async fillInputs(customer: Partial<ICustomer>) {
     customer.email && (await this.emailInput.fill(customer.email));
     customer.name && (await this.nameInput.fill(customer.name));
@@ -27,6 +29,7 @@ export class AddNewCustomerPage extends SalesPortalPage {
     customer.notes && (await this.notesInput.fill(customer.notes));
   }
 
+  @logStep("Click on Save New Customer button")
   async clickSaveNewCustomer() {
     await this.saveNewCustomerButton.click();
   }

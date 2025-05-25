@@ -1,11 +1,20 @@
+import { APIRequestContext } from "@playwright/test";
 import { RequestApi } from "api/apiClients/request";
 import { apiConfig } from "config/api-config";
 import { IRequestOptions } from "types/api.types";
 import { ICredentials, ILoginFromResponse } from "types/signIn.types";
 
 export class SignInController {
-  constructor(private request = new RequestApi()) {}
+  //x constructor(private request = new RequestApi()) {}
 
+
+  private request: RequestApi;
+  constructor() {
+    this.request = new RequestApi();
+  }
+
+ 
+  //constructor(private request = new RequestApi()) {}
   //login
   async signIn(body: ICredentials) {
     const options: IRequestOptions = {

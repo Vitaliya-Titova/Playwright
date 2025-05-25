@@ -1,8 +1,8 @@
-import { expect, test } from "fixtures/businessSteps.fixture";
+import { expect, test } from "fixtures/ui-services.fixture";
 import { MetricsResponse } from "types/home.types";
 
 test.describe("[UI] [Home] [Metrics]", async () => {
-  test("Should display valid Metrics: Orders This Year,  New Customers, Canceled Orders", async ({ loginAsLocalUser, homePage, mock }) => {
+  test("Should display valid Metrics: Orders This Year,  New Customers, Canceled Orders", async ({ homeUIService, homePage, mock }) => {
     const mockData: MetricsResponse = {
       IsSuccess: true,
       ErrorMessage: null,
@@ -29,7 +29,7 @@ test.describe("[UI] [Home] [Metrics]", async () => {
     // Мокирование API-запроса для получения данных
     await mock.homeMetricOrder(mockData);
 
-    await loginAsLocalUser();
+    await homeUIService.openAsLoggedInUser();
     await homePage.waitForOpened();
 
     const metrics = await homePage.getMetricsOrders();

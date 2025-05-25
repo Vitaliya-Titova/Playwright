@@ -6,14 +6,17 @@ test.describe("[E2E] [UI] [Products] [Create]", () => {
   let id = "";
   let token = "";
   test("Create product with smoke data", async ({
-    signInUIService,
+   // signInUIService,
     homeUIService,
     productsUIService,
     addNewProductUiService,
     productController,
     productsPage,
+    page,
   }) => {
-    token = await signInUIService.signInAsLocalUser();
+    // token = await signInUIService.signInAsLocalUser();
+    homeUIService.openAsLoggedInUser();
+    token = (await page.context().cookies()).find((c) => c.name === "Authorization")!.value;
 
     await homeUIService.openModule("Products");
 
@@ -31,7 +34,6 @@ test.describe("[E2E] [UI] [Products] [Create]", () => {
     expect(actualProductData).toEqual(
       _.pick(createdCProduct, ["name", "price", "manufacturer"]) //возвращает новый объект, содержащий только указанные поля из исходного
     );
-
   });
 
   //после каждого теста удаляем [product] (не часть test)

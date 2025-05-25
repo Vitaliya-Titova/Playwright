@@ -19,8 +19,8 @@ test.describe("[UI] [Sales Portal] [Customers]", async () => {
 
     //Sign IN
     await page.goto(SALES_PORTAL_URL);
-    await signInPage.fillCredentials({ username: USER_LOGIN, password: USER_PASSWORD });
-    await signInPage.clickLoginButton();
+    // await signInPage.fillCredentials({ username: USER_LOGIN, password: USER_PASSWORD });
+    // await signInPage.clickLoginButton();
 
     await homePage.waitForOpened();
     await homePage.clickModuleButton("Customers");
@@ -62,7 +62,8 @@ test.describe("[UI] [Sales Portal] [Customers]", async () => {
     // await page.getByRole("button", { name: "Login" }).click();
 
     // await homePage.waitForOpened();
-    await loginAsLocalUser();
+    //await loginAsLocalUser(); - заменяем на контекст логин
+    await homePage.openPortal();
     await homePage.clickModuleButton("Customers");
     await customersPage.waitForOpened();
     await customersPage.clickFilter();

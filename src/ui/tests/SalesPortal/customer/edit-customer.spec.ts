@@ -4,11 +4,12 @@ import { NOTIFICATIONS } from "data/notifications.data";
 import { test, expect } from "fixtures/businessSteps.fixture";
 
 test.describe("[UI] [Customers] [Edit]", async () => {
-  test("Edit customer with smoke invalid data", async ({ loginAsLocalUser, homePage, customersPage, editCustomerPage }) => {
-    loginAsLocalUser();
+  test("Edit customer with smoke invalid data", async ({ homePage, customersPage, editCustomerPage }) => {
+    // loginAsLocalUser(); - заменяем на контекст логин
+    await homePage.openPortal();
     await homePage.clickModuleButton("Customers");
     await customersPage.waitForOpened();
-    await customersPage.clickTableAction("user@domain.com	", "edit");
+    await customersPage.clickTableAction("Vita_test2@domain.com", "edit");
     await editCustomerPage.waitForOpened();
     await editCustomerPage.fillInputs({
       email: "user@domain.com!",
@@ -24,11 +25,12 @@ test.describe("[UI] [Customers] [Edit]", async () => {
     console.log(errors);
   });
 
-  test.skip("Edit customer with smoke valid name", async ({ loginAsLocalUser, homePage, customersPage, editCustomerPage }) => {
-    loginAsLocalUser();
+  test.skip("Edit customer with smoke valid name", async ({ homePage, customersPage, editCustomerPage }) => {
+    // loginAsLocalUser(); - заменяем на контекст логин
+    await homePage.openPortal();
     await homePage.clickModuleButton("Customers");
     await customersPage.waitForOpened();
-    const editEmail = "Vita_test@domain.com";
+    const editEmail = "Vita_test2@domain.com";
     await customersPage.clickTableAction(editEmail, "edit");
     await editCustomerPage.waitForOpened();
     const updatedCustomerData = generateCustomerData({ name: `TestVitaUPDATE ${faker.string.alpha(11)}` });

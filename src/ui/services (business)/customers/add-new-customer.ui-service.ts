@@ -6,7 +6,7 @@ import { ICustomer, ICustomerResponse } from "types/customer.types";
 import { AddNewCustomerPage } from "ui/pages/customers/add-new-customer.page";
 import { CustomersPage } from "ui/pages/customers/customers.page";
 import _ from "lodash";
-
+import { logStep } from "utils/reporter.utils";
 
 export class AddNewCustomerUiService {
   private addNewCustomerPage: AddNewCustomerPage;
@@ -16,10 +16,12 @@ export class AddNewCustomerUiService {
     this.customersPage = new CustomersPage(page);
   }
 
-  async create(customData?: ICustomer) { //на этом уровне аргумент customData?: ICustomer не обязателен
+  @logStep("Create new Customer on Add New Customer Page")
+  async create(customData?: ICustomer) {
+    //на этом уровне аргумент customData?: ICustomer не обязателен
     const data = generateCustomerData(customData);
     await this.addNewCustomerPage.fillInputs(data);
-    //респонс созданного кастомера (ч/з перехват ответа); аргументы урл+клик; 
+    //респонс созданного кастомера (ч/з перехват ответа); аргументы урл+клик;
     // привязка контекста ч/з bind -  Контекст метода clickSaveNewCustomer привязан к addNewCustomerPage.
     const response = await this.addNewCustomerPage.interceptResponse<ICustomerResponse, any>(
       apiConfig.ENDPOINTS.CUSTOMERS,

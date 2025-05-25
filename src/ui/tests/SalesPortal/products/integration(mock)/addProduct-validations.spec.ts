@@ -4,7 +4,8 @@ import { IProduct } from "types/products.type";
 
 test.describe("[UI] [Integration] [Products] [Add] Validations", () => {
   test("Should see correct error message for name field", async ({ signInUIService, homeUIService, productsPage, addNewProductPage }) => {
-    await signInUIService.signInAsLocalUser();
+    //await signInUIService.signInAsLocalUser();
+    await homeUIService.openAsLoggedInUser();
     await homeUIService.openModule("Products");
     await productsPage.addNewProductButton.click();
     await addNewProductPage.fillInputs({

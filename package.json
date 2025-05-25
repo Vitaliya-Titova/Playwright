@@ -4,7 +4,12 @@
   "main": "index.js",
   "scripts": {
     "test": "npx playwright test",
-    "ui": "npx playwright test --ui"
+    "ui": "npx playwright test --ui",
+    "test:ui": "npx playwright test --project=sales-portal-ui",
+    "test:api": "npx playwright test --project=sales-portal-api",
+    "report-html-open": "npx playwright show-report",
+    "allure-report": "allure generate allure-results -o allure-report --clean",
+    "allure-report-open": "npm run allure-report && allure open allure-report"
   },
   "repository": {
     "type": "git",

@@ -3,8 +3,15 @@ import { EMPTY_TABLE_ROW_TEXT, NOTIFICATIONS } from "data/notifications.data";
 import { expect, test } from "fixtures/businessSteps.fixture";
 
 test.describe("[UI] [Sales Portal] [Customers]", async () => {
-  test("Should delete customer on Edit Customer page", async ({ loginAsLocalUser, homePage, customersPage, addNewCustomerPage, editCustomerPage }) => {
-    await loginAsLocalUser();
+  test("Should delete customer on Edit Customer page", async ({
+    // loginAsLocalUser,
+    homePage,
+    customersPage,
+    addNewCustomerPage,
+    editCustomerPage,
+  }) => {
+    //await loginAsLocalUser(); - заменяем на контекст логин
+    await homePage.openPortal();
     await homePage.waitForOpened();
     await homePage.clickModuleButton("Customers");
     await customersPage.waitForOpened();
@@ -26,13 +33,14 @@ test.describe("[UI] [Sales Portal] [Customers]", async () => {
     await customersPage.waitForNotification(NOTIFICATIONS.CUSTOMER_DELETED);
 
     await expect(customersPage.tableRowByEmail(data.email)).not.toBeVisible();
-   //отсутсвтует удаленный юзер в таблице через поиск
+    //отсутсвтует удаленный юзер в таблице через поиск
     await customersPage.search(data.email);
     await expect(customersPage.emptyTableRow).toHaveText(EMPTY_TABLE_ROW_TEXT);
   });
 
-  test("Should delete customer on Customers page", async ({ loginAsLocalUser, homePage, customersPage, addNewCustomerPage, editCustomerPage }) => {
-    await loginAsLocalUser();
+  test("Should delete customer on Customers page", async ({ homePage, customersPage, addNewCustomerPage }) => {
+    //await loginAsLocalUser(); - заменяем на контекст логин
+    await homePage.openPortal();
     await homePage.waitForOpened();
     await homePage.clickModuleButton("Customers");
     await customersPage.waitForOpened();

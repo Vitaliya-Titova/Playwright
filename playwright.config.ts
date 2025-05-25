@@ -37,8 +37,38 @@ export default defineConfig({
   /* Configure projects for major browsers */
   projects: [
     {
+      name: "setup",
+      use: {
+        ...devices["Desktop Chrome"],
+        headless: true,
+      },
+      testDir: "src/ui/tests/SalesPortal", //где ищет
+      testMatch: /.*\.setup\.ts/, //ищет все тесты с setup.ts
+    },
+    {
       name: "chromium",
-      use: { ...devices["Desktop Chrome"], headless: true },
+      use: {
+        ...devices["Desktop Chrome"],
+        // headless: false,
+      },
+    },
+
+    {
+      name: "sales-portal-ui",
+      use: {
+        ...devices["Desktop Chrome"],
+        storageState: "src/.auth/user.json",
+      },
+      dependencies: ["setup"],//сначала запустится проект setup
+      testDir: "./src/ui/tests/SalesPortal", //все тесты конкр проекта
+    },
+
+    {
+      name: "sales-portal-api",
+      use: {
+        ...devices["Desktop Chrome"],
+      },
+      testDir: "./src/api/tests",
     },
 
     // {

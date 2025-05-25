@@ -1,6 +1,6 @@
 import { apiConfig } from "config/api-config";
 import { COUNTRIES } from "data/customers/countries.data";
-import { expect, test } from "fixtures/businessSteps.fixture";
+import { expect, test } from "fixtures/ui-services.fixture";
 import { customersSortField, sortDirection } from "types/api.types";
 
 test.describe("[UI] [Customers] [Table component]", async () => {
@@ -23,7 +23,7 @@ test.describe("[UI] [Customers] [Table component]", async () => {
 
   fields.forEach((field) => {
     directions.forEach((direction) => {
-      test(`Should display correct sorting for ${field} field and ${direction} direction`, async ({ loginAsLocalUser, customersPage, mock }) => {
+      test(`Should display correct sorting for ${field} field and ${direction} direction`, async ({ homeUIService, customersPage, mock }) => {
         await mock.customers({
           Customers: [
             {
@@ -38,7 +38,8 @@ test.describe("[UI] [Customers] [Table component]", async () => {
           },
         });
 
-        await loginAsLocalUser();
+        //await loginAsLocalUser(); - заменяем на контекст логин
+        await homeUIService.openAsLoggedInUser();
 
         await customersPage.open();
         await customersPage.waitForOpened();
@@ -47,8 +48,9 @@ test.describe("[UI] [Customers] [Table component]", async () => {
     });
   });
 
-  test("Should send correct query clicking on Created On header", async ({ loginAsLocalUser, customersPage, page }) => {
-    await loginAsLocalUser();
+  test("Should send correct query clicking on Created On header", async ({ homeUIService, customersPage, page }) => {
+    //await loginAsLocalUser(); - заменяем на контекст логин
+    await homeUIService.openAsLoggedInUser();
     await customersPage.open();
     await customersPage.waitForOpened();
     // const [request] = await Promise.all([ //клик в параллель с дожиданием - одновременный запуск

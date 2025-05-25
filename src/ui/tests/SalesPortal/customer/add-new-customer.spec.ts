@@ -11,9 +11,10 @@ test.describe("[UI] [Sales Portal] [Customers]", async () => {
     const customersPage = new CustomersPage(page);
     const addNewCustomerPage = new AddNewCustomerPage(page);
     await page.goto("https://anatoly-karpovich.github.io/aqa-course-project/#");
-    await page.locator("#emailinput").fill("test@gmail.com");
-    await page.locator("#passwordinput").fill("12345678");
-    await page.getByRole("button", { name: "Login" }).click();
+    // заменяем на контекст логин
+    // await page.locator("#emailinput").fill("test@gmail.com");
+    // await page.locator("#passwordinput").fill("12345678");
+    // await page.getByRole("button", { name: "Login" }).click();
 
     await homePage.waitForOpened();
     await homePage.clickModuleButton("Customers");
@@ -32,9 +33,9 @@ test.describe("[UI] [Sales Portal] [Customers]", async () => {
     const customersPage = new CustomersPage(page);
     const addNewCustomerPage = new AddNewCustomerPage(page);
     await page.goto("https://anatoly-karpovich.github.io/aqa-course-project/#");
-    await page.locator("#emailinput").fill("test@gmail.com");
-    await page.locator("#passwordinput").fill("12345678");
-    await page.getByRole("button", { name: "Login" }).click();
+    // await page.locator("#emailinput").fill("test@gmail.com");
+    // await page.locator("#passwordinput").fill("12345678");
+    // await page.getByRole("button", { name: "Login" }).click();
 
     await homePage.waitForOpened();
     await homePage.clickModuleButton("Customers");
@@ -49,12 +50,8 @@ test.describe("[UI] [Sales Portal] [Customers]", async () => {
 
     await customersPage.clickAddNewCustomer();
     await addNewCustomerPage.waitForOpened();
-    await addNewCustomerPage.fillInputs(
-      generateCustomerData({ email: data.email })
-    );
+    await addNewCustomerPage.fillInputs(generateCustomerData({ email: data.email }));
     await addNewCustomerPage.clickSaveNewCustomer();
-    await customersPage.waitForNotification(
-      NOTIFICATIONS.CUSTOMER_DUPLICATED(data.email)
-    );
+    await customersPage.waitForNotification(NOTIFICATIONS.CUSTOMER_DUPLICATED(data.email));
   });
 });

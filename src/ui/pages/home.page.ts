@@ -2,6 +2,7 @@ import { Locator } from "@playwright/test";
 import { ModuleName, OrdersMetrics } from "types/home.types";
 import { SalesPortalPage } from "./salePortal.page";
 import numeral from "numeral";
+import { logStep } from "utils/reporter.utils";
 
 export class HomePage extends SalesPortalPage {
   readonly title = this.page.locator(".welcome-text");
@@ -18,6 +19,7 @@ export class HomePage extends SalesPortalPage {
   readonly averageOrderValue = this.page.locator("#avg-orders-value-container .card-text");
   readonly totalCanceledOrders = this.page.locator("#canceled-orders-container .card-text");
 
+  @logStep("Click on Module button")
   async clickModuleButton(moduleName: ModuleName) {
     const moduleButtons: Record<ModuleName, Locator> = {
       Customers: this.customersButton,
@@ -28,6 +30,7 @@ export class HomePage extends SalesPortalPage {
     await moduleButtons[moduleName].click();
   }
 
+  @logStep("Get Metrics Orders from HomePage")
   async getMetricsOrders(): Promise<OrdersMetrics> {
     // получаем  текст из  metrics
     const [totalOrders, totalRevenue, totalCanceledOrders, averageOrderValue] = await Promise.all([
