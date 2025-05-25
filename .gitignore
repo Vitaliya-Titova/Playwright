@@ -9,3 +9,5 @@ node_modules/
 .prettierrc
 .env
 src/.auth/user.json
+allure-results
+allure-report

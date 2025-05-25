@@ -2,6 +2,7 @@ import { RequestApi } from "api/apiClients/request";
 import { apiConfig } from "config/api-config";
 import { IRequestOptions } from "types/api.types";
 import { ICustomer, ICustomerResponse, ICustomersResponse } from "types/customer.types";
+import { logStep } from "utils/reporter.utils";
 import { convertRequestParams } from "utils/requestParams";
 
 //описывает работу с customers
@@ -10,6 +11,7 @@ export class CustomersController {
   constructor(private request = new RequestApi()) {}
 
   //create customer
+  @logStep()
   async create(body: ICustomer, token: string) {
     const options: IRequestOptions = {
       baseURL: apiConfig.BASE_URL,
@@ -26,6 +28,7 @@ export class CustomersController {
   }
 
   //получение customer по id
+  @logStep()
   async getById(id: string, token: string) {
     const options: IRequestOptions = {
       baseURL: apiConfig.BASE_URL,
@@ -38,7 +41,9 @@ export class CustomersController {
     };
     return await this.request.send<ICustomerResponse>(options);
   }
+
   //получение всех customers + фильтр парам в урле
+  @logStep()
   async getAll(token: string, params?: Record<string, string>) {
     const options: IRequestOptions = {
       baseURL: apiConfig.BASE_URL,
@@ -53,6 +58,7 @@ export class CustomersController {
   }
 
   //обновление данных customer по его id
+  @logStep()
   async update(id: string, body: ICustomer, token: string) {
     const options: IRequestOptions = {
       baseURL: apiConfig.BASE_URL,
@@ -68,6 +74,7 @@ export class CustomersController {
   }
 
   //удаление customer по его id
+  @logStep()
   async delete(id: string, token: string) {
     const options: IRequestOptions = {
       baseURL: apiConfig.BASE_URL,

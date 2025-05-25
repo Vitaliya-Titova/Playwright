@@ -9,10 +9,10 @@ test.describe("[UI] [Customers] [Edit]", async () => {
     await homePage.openPortal();
     await homePage.clickModuleButton("Customers");
     await customersPage.waitForOpened();
-    await customersPage.clickTableAction("Vita_test2@domain.com", "edit");
+    await customersPage.clickTableAction("test1234@gmail.com", "edit");
     await editCustomerPage.waitForOpened();
     await editCustomerPage.fillInputs({
-      email: "user@domain.com!",
+      email: "test1234@gmail.com!",
       // city: "@!#",
       // flat: 11111111111111,
       // house: 1111111111111111111,

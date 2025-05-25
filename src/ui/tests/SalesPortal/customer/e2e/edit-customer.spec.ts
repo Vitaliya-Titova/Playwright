@@ -14,7 +14,7 @@ test.describe("[E2E] [UI] [Customers] [Edit]", () => {
     page,
   }) => {
     //token = await signInUIService.signInAsLocalUser();
-    homeUIService.openAsLoggedInUser();
+    await homeUIService.openAsLoggedInUser();
     token = (await page.context().cookies()).find((c) => c.name === "Authorization")!.value;
     const createdCustomer = await customersApiService.create(token);
 

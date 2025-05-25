@@ -1,9 +1,10 @@
 import { test, expect } from "fixtures/businessSteps.fixture";
 
 test.describe("[UI] [Customers] [Search]", async () => {
-  test("Should search for existing customer by email", async ({  homePage, customersPage }) => {
+  test("Should search for existing customer by email", { tag: ["@smoke"] }, async ({ homePage, customersPage }) => {
     //await loginAsLocalUser(); - заменяем на контекст логин
     await homePage.openPortal();
+    await homePage.waitForOpened();
     await homePage.clickModuleButton("Customers");
     await customersPage.waitForOpened();
 

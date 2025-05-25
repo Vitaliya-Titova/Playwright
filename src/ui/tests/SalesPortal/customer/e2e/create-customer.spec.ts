@@ -17,7 +17,7 @@ test.describe("[E2E] [UI] [Customers] [Create]", () => {
     }) => {
       // test.step("Open portal on Home Page", async () => {
       // token = await signInUIService.signInAsLocalUser();
-      homeUIService.openAsLoggedInUser();
+     await homeUIService.openAsLoggedInUser();
       // });
       token = (await page.context().cookies()).find((c) => c.name === "Authorization")!.value;
       await homeUIService.openModule("Customers");

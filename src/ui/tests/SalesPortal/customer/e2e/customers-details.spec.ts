@@ -18,7 +18,7 @@ test.describe("[E2E] [UI] [Customers] [Details]", () => {
       page,
     }) => {
       // token = await signInUIService.signInAsLocalUser();
-      homeUIService.openAsLoggedInUser();
+      await homeUIService.openAsLoggedInUser();
       token = (await page.context().cookies()).find((c) => c.name === "Authorization")!.value;
       const createdCustomer = await customersApiService.create(token);
       id = createdCustomer._id;
@@ -26,10 +26,11 @@ test.describe("[E2E] [UI] [Customers] [Details]", () => {
       await customersUIService.openDetailsPage(createdCustomer.email);
       const actualData = await customerDetailsPage.getDetails();
       test.step("Check displayed customer data matches expected", async () => {
-      expect(actualData).toMatchObject({
-        ..._.omit(createdCustomer, "_id"),
-        createdOn: convertToDateAndTime(createdCustomer.createdOn),
-      });   });
+        expect(actualData).toMatchObject({
+          ..._.omit(createdCustomer, "_id"),
+          createdOn: convertToDateAndTime(createdCustomer.createdOn),
+        });
+      });
     }
   );
   //после каждого теста удаляем customer (не часть теста)
