@@ -2,6 +2,7 @@ import { Page } from "@playwright/test";
 import { ProductsPage } from "ui/pages/products/products.page";
 import { AddNewProductPage } from "ui/pages/products/add-new-product.page";
 import { IProduct } from "types/products.type";
+import { logStep } from "utils/reporter.utils";
 
 export class ProductsUIService {
   private productsPage: ProductsPage;
@@ -16,6 +17,7 @@ export class ProductsUIService {
     // this.productDetailsPage = new CustomerDetailsPage(page);
   }
 
+  @logStep("UI Service: Open Add New Product Page from Products Page")
   async openAddPage() {
     await this.productsPage.clickAddNewProduct();
     await this.addNewProductPage.waitForOpened();

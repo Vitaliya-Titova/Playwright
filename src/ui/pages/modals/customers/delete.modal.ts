@@ -1,5 +1,6 @@
 import { expect } from "@playwright/test";
 import { Modal } from "../modal.pages";
+import { logStep } from "utils/reporter.utils";
 
 export class DeleteCustomerModal extends Modal {
   readonly modalContainer = this.page.locator(`div[role="dialog"]`);
@@ -10,15 +11,18 @@ export class DeleteCustomerModal extends Modal {
 
   uniqueElement = this.deleteButton;
 
+  @logStep("UI: Click CloseButton on DeleteModal")
   async close() {
     await this.closeButton.click();
     await this.waitForClosed();
   }
 
+  @logStep("UI: Click DeleteButton on DeleteModal")
   async clickDelete() {
     await this.deleteButton.click();
   }
 
+  @logStep("UI: Click CancelButton on DeleteModal")
   async clickCancel() {
     await this.cancelButton.click();
   }

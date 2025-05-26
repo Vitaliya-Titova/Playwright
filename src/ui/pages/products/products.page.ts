@@ -6,6 +6,7 @@ import { IProductInTable } from "types/products.type";
 import { MANUFACTURER } from "data/products/manufacturer.data";
 import numeral from "numeral";
 import { ProductDetailsModal } from "../modals/products/productDetails.modal";
+import { logStep } from "utils/reporter.utils";
 
 export class ProductsPage extends SalesPortalPage {
   //modals
@@ -60,18 +61,22 @@ export class ProductsPage extends SalesPortalPage {
   //     });
   //   }
 
+  @logStep("UI: Click on Add New Product button on Product Page")
   async clickAddNewProduct() {
     await this.addNewProductButton.click();
   }
 
+  @logStep("UI: Click on Delete Product button on Product Page")
   async clickDeleteProduct(productName: string) {
     await this.deleteButton(productName).click();
   }
 
+  @logStep("UI: Click on Filter Button on Product Page")
   async clickFilter() {
     await this.filterButton.click();
   }
 
+  @logStep("UI: Click on Table Action on Product Page")
   async clickTableAction(productName: string, action: "edit" | "details" | "delete") {
     const buttons = {
       edit: this.editButton(productName),
@@ -82,11 +87,13 @@ export class ProductsPage extends SalesPortalPage {
     await buttons[action].click();
   }
 
+  @logStep("UI: Click on Detail on Product Page")
   async clickDetails(name: string) {
     await this.detailsButton(name).click();
     await this.detailsModal.waitForOpened();
   }
 
+  @logStep("Get Product Data by Name in Table on Product Page")
   async getProductData(productName: string): Promise<IProductInTable> {
     const [name, price, manufacturer, createdOn] = await this.tableRowByName(productName).locator("td").allInnerTexts(); //массив строк >> в const распаковывает этот массив в отдельные переменные
     return {
@@ -99,6 +106,7 @@ export class ProductsPage extends SalesPortalPage {
   }
 
   //все строки таблицы >> возвращает  массив объектов name, price, manufacturer из всей таблицы
+  @logStep("Get All Products data in Table on Product Page")
   async getTabelData() {
     const tableData: Array<IProductInTable> = [];
 
@@ -115,14 +123,17 @@ export class ProductsPage extends SalesPortalPage {
     return tableData;
   }
 
+  @logStep("UI: Fill Search Field on Product Page")
   async fillSearch(value: string | number) {
     await this.searchInput.fill(String(value));
   }
 
+  @logStep("UI: Click on SearchButton on Product Page")
   async clickSearch() {
     await this.searchButton.click();
   }
 
+  @logStep("UI: Perform Search on Product Page")
   async search(value: string | number) {
     await this.fillSearch(value);
     await this.clickSearch();
@@ -130,6 +141,7 @@ export class ProductsPage extends SalesPortalPage {
   }
 
   //клик по хедерам таблицы products
+  @logStep("UI: Click on Table Header on Product Page")
   async clickTableHeader(header: productSortField) {
     switch (header) {
       case "name":

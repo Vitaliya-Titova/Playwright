@@ -45,6 +45,7 @@ test.describe("[API] [Customers] [Update]", () => {
     });
 
     const body = await updateCustomerResponse.json();
+
     test.step("Validate  response JSON schema", async () => {
       validateSchema(customerSchema, body);
     });

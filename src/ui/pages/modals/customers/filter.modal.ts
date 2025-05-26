@@ -1,5 +1,6 @@
 import { expect } from "@playwright/test";
 import { Modal } from "../modal.pages";
+import { logStep } from "utils/reporter.utils";
 
 export class FilterModal extends Modal {
   readonly uniqueElement = this.page.locator(`div[role="dialog"]`);
@@ -15,20 +16,24 @@ export class FilterModal extends Modal {
   //  у которого атрибут value совпадает с этим значением
   // и кликает по этому чекбоксу, чтобы его отметить
   // мультивыбор
+  @logStep("UI: Check Multiple Options on FilterModal")
   async checkFilters(...value: string[]) {
     for (const v of value) {
       await this.checkbox(v).check();
     }
   }
 
+  @logStep("UI: Click ApplyButton on FilterModal")
   async clickApply() {
     await this.applyButton.click();
   }
 
+  @logStep("UI: Click ClearFiltersButton on FilterModal")
   async clickClearFilters() {
     await this.clearFiltersButton.click();
   }
 
+  @logStep("UI: Click CloseButton on FilterModal")
   async close() {
     await this.closeButton.click();
     await expect(this.uniqueElement).not.toBeVisible(); //дождемся что модалка полностью пропала

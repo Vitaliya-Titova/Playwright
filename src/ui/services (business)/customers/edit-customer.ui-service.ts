@@ -6,6 +6,7 @@ import { ICustomer, ICustomerResponse } from "types/customer.types";
 import { CustomersPage } from "ui/pages/customers/customers.page";
 import _ from "lodash";
 import { EditCustomerPage } from "ui/pages/customers/edit-customer.page";
+import { logStep } from "utils/reporter.utils";
 
 export class EditCustomerUiService {
   private editCustomerPage: EditCustomerPage;
@@ -15,6 +16,7 @@ export class EditCustomerUiService {
     this.customersPage = new CustomersPage(page);
   }
 
+  @logStep("UI: Update Customer Data on Edit Customer Page")
   async edit(customData?: ICustomer) {
     const data = generateCustomerData(customData);
     await this.editCustomerPage.fillInputs(data);

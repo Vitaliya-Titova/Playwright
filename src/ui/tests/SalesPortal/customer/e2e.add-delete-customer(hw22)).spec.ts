@@ -1,9 +1,10 @@
 import { generateCustomerData } from "data/customers/generateCustomerData";
 import { EMPTY_TABLE_ROW_TEXT, NOTIFICATIONS } from "data/notifications.data";
+import { TAGS } from "data/tages";
 import { expect, test } from "fixtures/businessSteps.fixture";
 
 test.describe("[UI] [Sales Portal] [Customers]", async () => {
-  test("Should add and delete customer on Customer page", async ({
+  test("Should add and delete customer on Customer page", { tag: [TAGS.UI, TAGS.SMOKE, TAGS.REGRESSION] }, async ({
     //loginAsLocalUser,
     homePage,
     customersPage,
@@ -28,6 +29,7 @@ test.describe("[UI] [Sales Portal] [Customers]", async () => {
     await customersPage.waitForOpened();
     await customersPage.waitForNotification(NOTIFICATIONS.CUSTOMER_DELETED);
 
+    await test.step("Verify Customer is Deleted and not Visible in Table on Customers Page", async () => {
     await expect(customersPage.tableRowByEmail(data.email)).not.toBeVisible();
 
     //отсутсвтует удаленный юзер в таблице через поиск
@@ -40,6 +42,6 @@ test.describe("[UI] [Sales Portal] [Customers]", async () => {
 
     // проверяем ч/з some(есть ли хотя бы один true или вернет false) что нет ни одного объекта с ключом email
     const isCustomerPresent = allCustomersData.some((customer) => customer.email === data.email);
-    expect(isCustomerPresent).toBe(false);
+    expect(isCustomerPresent).toBe(false);})
   });
 });

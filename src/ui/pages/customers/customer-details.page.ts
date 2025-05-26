@@ -1,6 +1,7 @@
 import { SalesPortalPage } from "../salePortal.page";
 import { ICustomer } from "types/customer.types";
 import { COUNTRIES } from "data/customers/countries.data";
+import { logStep } from "utils/reporter.utils";
 
 export class CustomerDetailsPage extends SalesPortalPage {
   email = this.page.locator("#customer-email");
@@ -17,6 +18,7 @@ export class CustomerDetailsPage extends SalesPortalPage {
 
   //этим методом (редкий метод, чаще просто по url) можно перейти на стр находясь на любой странице сайта
   // Открывает страницу деталей клиента, вызывая функцию renderCustomerDetailsPage
+  @logStep("Go to CustomerDetailsPage")
   async open(id: string) {
     await this.page.evaluate(async (id: string) => {
       //evaluate - позволяет выполнять js код в контексте браузера
@@ -25,7 +27,8 @@ export class CustomerDetailsPage extends SalesPortalPage {
     }, id);
     //без типизации: await window.renderCustomerDetailsPage(id)
   }
-
+  
+  @logStep("Get Customer Details on DetailPage")
   async getDetails(): Promise<ICustomer & { createdOn: string }> {
     // получаем  текст из всех полей деталей customer
     const [email, name, phone, country, city, street, house, flat, notes, registrationDate] = await Promise.all([

@@ -6,6 +6,7 @@
 //  - Проверить скриншотом боковое навигационное меню с выбранной страницей Home
 
 import { test, expect } from "@playwright/test";
+import { TAGS } from "data/tages";
 
 test.describe("[UI] User authorisation", () => {
   const validCredentials = {
@@ -14,7 +15,7 @@ test.describe("[UI] User authorisation", () => {
     username: "Anatoly",
   };
 
-  test("Should log in with valid credentials", async ({ page }) => {
+  test("Should log in with valid credentials", { tag: [TAGS.UI, TAGS.SMOKE, TAGS.REGRESSION, TAGS.VISUAL_REGRESSION] }, async ({ page }) => {
     await page.goto("https://anatoly-karpovich.github.io/aqa-course-project/#");
 
     const btnLogin = page.getByRole("button", { name: "Login" });

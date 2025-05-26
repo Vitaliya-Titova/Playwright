@@ -49,6 +49,7 @@ export class CustomersPage extends SalesPortalPage {
 
   readonly uniqueElement = this.addNewCustomerButton;
 
+  @logStep("Go to CustomersPage")
   async open() {
     // Выполняет fun renderCustomersPage в контексте браузера и ожидает её завершения
     await this.page.evaluate(async () => {
@@ -57,22 +58,22 @@ export class CustomersPage extends SalesPortalPage {
     });
   }
 
-  @logStep("Click on Add New Customer button")
+  @logStep("UI: Click on Add New Customer button on CustomersPage")
   async clickAddNewCustomer() {
     await this.addNewCustomerButton.click();
   }
 
-  @logStep("Click on Delete Customer button")
+  @logStep("UI: Click on Delete Customer button on CustomersPage")
   async clickDeleteCustomer(customerEmail: string) {
     await this.deleteButton(customerEmail).click();
   }
 
-  @logStep("Click on Filter Button on Customer Page")
+  @logStep("UI: Click on Filter Button on Customers Page")
   async clickFilter() {
     await this.filterButton.click();
   }
 
-  @logStep("Click on Table Action")
+  @logStep("UI: Click on Table Action on CustomersPage")
   async clickTableAction(customerEmail: string, action: "edit" | "details" | "delete") {
     const buttons = {
       edit: this.editButton(customerEmail),
@@ -83,6 +84,7 @@ export class CustomersPage extends SalesPortalPage {
     await buttons[action].click();
   }
 
+  @logStep("Get Customer Data by Email in Table on CustomersPage")
   async getCustomerData(customerEmail: string): Promise<ICustomerInTable> {
     //variant 1 - в асинх последовательные действия  - плохо
     // return {
@@ -113,6 +115,7 @@ export class CustomersPage extends SalesPortalPage {
   }
 
   //все строки таблицы >> возвращает  массив объектов email, name, country из всей таблицы
+  @logStep("Get All Customers data in Table on CustomersPage")
   async getTabeData() {
     const tableData: Array<ICustomerInTable> = [];
 
@@ -129,14 +132,17 @@ export class CustomersPage extends SalesPortalPage {
     return tableData;
   }
 
+  @logStep("UI: Fill Search Field on CustomersPage")
   async fillSearch(value: string | number) {
     await this.searchInput.fill(String(value));
   }
 
+  @logStep("UI: Click on SearchButton on CustomersPage")
   async clickSearch() {
     await this.searchButton.click();
   }
 
+  @logStep("UI: Perform Search on CustomersPage")
   async search(value: string | number) {
     await this.fillSearch(value);
     await this.clickSearch();
@@ -144,6 +150,7 @@ export class CustomersPage extends SalesPortalPage {
   }
 
   //клик по хедерам таблицы customers
+  @logStep("UI: Click on Table Header on CustomersPage")
   async clickTableHeader(header: customersSortField) {
     switch (header) {
       case "email":

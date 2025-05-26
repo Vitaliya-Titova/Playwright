@@ -8,9 +8,10 @@ import { CustomersPage } from "ui/pages/customers/customers.page";
 import { HomePage } from "ui/pages/home.page";
 import { SignInPage } from "ui/pages/signIn.page";
 import { SALES_PORTAL_URL, USER_LOGIN, USER_PASSWORD } from "config/environment";
+import { TAGS } from "data/tages";
 
 test.describe("[UI] [Sales Portal] [Customers]", async () => {
-  test("Should check created customer in table", async ({ page }) => {
+  test("Should check created customer in table", { tag: [TAGS.UI, TAGS.SMOKE, TAGS.REGRESSION] }, async ({ page }) => {
     //Precondition
     const signInPage = new SignInPage(page);
     const homePage = new HomePage(page);
@@ -49,7 +50,6 @@ test.describe("[UI] [Sales Portal] [Customers]", async () => {
 
     // вывести массив объектов из всей таблицы
     const table = await customersPage.getTabeData();
-    console.log(table);
 
     await customersPage.clickDeleteCustomer(data.email);
   });

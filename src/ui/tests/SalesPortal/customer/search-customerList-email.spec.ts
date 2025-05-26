@@ -1,7 +1,8 @@
+import { TAGS } from "data/tages";
 import { test, expect } from "fixtures/businessSteps.fixture";
 
 test.describe("[UI] [Customers] [Search]", async () => {
-  test("Should search for existing customer by email", { tag: ["@smoke"] }, async ({ homePage, customersPage }) => {
+  test("Should search for existing customer by email", { tag: [TAGS.UI, TAGS.SMOKE, TAGS.REGRESSION] }, async ({ homePage, customersPage }) => {
     //await loginAsLocalUser(); - заменяем на контекст логин
     await homePage.openPortal();
     await homePage.waitForOpened();
@@ -15,6 +16,7 @@ test.describe("[UI] [Customers] [Search]", async () => {
     };
     await customersPage.search(expected.email);
     //сравниваем данные переданные и найденные в таблице
+
     await expect.soft(customersPage.tableRow).toHaveCount(1);
     const actual = await customersPage.getCustomerData(expected.email);
     expect.soft(actual).toMatchObject(expected);

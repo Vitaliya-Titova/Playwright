@@ -1,6 +1,7 @@
 import { ICustomer } from "types/customer.types";
 import { SalesPortalPage } from "../salePortal.page";
 import { DeleteCustomerModal } from "../modals/customers/delete.modal";
+import { logStep } from "utils/reporter.utils";
 
 export class EditCustomerPage extends SalesPortalPage {
   // Modals
@@ -33,6 +34,7 @@ export class EditCustomerPage extends SalesPortalPage {
 
   readonly uniqueElement = this.saveChangesButton;
 
+  @logStep("UI: Fill Edit Customer Inputs on EditCustomerPage")
   async fillInputs(customer: Partial<ICustomer>) {
     customer.email && (await this.emailInput.fill(customer.email));
     customer.name && (await this.nameInput.fill(customer.name));
@@ -45,6 +47,7 @@ export class EditCustomerPage extends SalesPortalPage {
     customer.notes && (await this.notesInput.fill(customer.notes));
   }
 
+  @logStep("UI: Get Edit Form Input Values on EditCustomerPage")
   async getInputValues() {
     const [email, name, country, city, street, house, flat, phone, notes] = await Promise.all([
       this.emailInput.inputValue(),
@@ -60,14 +63,17 @@ export class EditCustomerPage extends SalesPortalPage {
     return { email, name, country, city, street, house, flat, phone, notes };
   }
 
+  @logStep("UI: Click SaveChangesButton on EditCustomerPage")
   async clickSaveChanges() {
     await this.saveChangesButton.click();
   }
 
+  @logStep("UI: Click DeleteCustomerButton on EditCustomerPage")
   async clickDeleteCustomer() {
     await this.deleteCustomerButton.click();
   }
 
+  @logStep("UI: Get Edit Form ErrorMessages")
   async getFormErrors() {
     return {
       email: (await this.emailError.isVisible()) ? await this.emailError.innerText() : null,

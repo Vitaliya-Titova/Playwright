@@ -29,7 +29,10 @@ test.describe("[API] [Auth] [Login]]", () => {
       createdOn: "2025/04/20 13:11:14",
     };
     //валидация json-схемы
-    validateSchema(loginSchema, responseBody);
+    test.step("Validate  response JSON schema", async () => {
+      validateSchema(loginSchema, responseBody);
+    });
+
     // Проверка статус кода логина: 200 OK
     expect.soft(loginResponse.status()).toBe(STATUS_CODES.OK);
     // Проверка наличия токена
@@ -60,20 +63,28 @@ test.describe("[API] [Auth] [Login]]", () => {
       createdOn: "2025/04/20 13:11:14",
     };
     // Assert
-
+    const responseBody = sigInResponse.body;
     const headers = sigInResponse.headers;
     // Достаем токен из хедеров
     const authToken = headers["authorization"];
-    // Проверка наличия токена
-    expect.soft(authToken).toBeTruthy();
-    // Проверка статус кода логина: 200 OK
-    expect.soft(sigInResponse.status).toBe(STATUS_CODES.OK);
-    // Проверка данных пользователя
-    expect.soft(sigInResponse.body.User).toMatchObject(expectedUser);
-    // Проверка отсутствия ошибки
-    expect.soft(sigInResponse.body.ErrorMessage).toBe(null);
-    // Проверка IsSuccess: true
-    expect.soft(sigInResponse.body.IsSuccess).toBe(true);
+
+    //валидация json-схемы
+    test.step("Validate  response JSON schema", async () => {
+      validateSchema(loginSchema, responseBody);
+    });
+
+    test.step("Validate SignIn response ", async () => {
+      // Проверка наличия токена
+      expect.soft(authToken).toBeTruthy();
+      // Проверка статус кода логина: 200 OK
+      expect.soft(sigInResponse.status).toBe(STATUS_CODES.OK);
+      // Проверка данных пользователя
+      expect.soft(responseBody.User).toMatchObject(expectedUser);
+      // Проверка отсутствия ошибки
+      expect.soft(responseBody.ErrorMessage).toBe(null);
+      // Проверка IsSuccess: true
+      expect.soft(responseBody.IsSuccess).toBe(true);
+    });
   });
 });
 /* asserts:

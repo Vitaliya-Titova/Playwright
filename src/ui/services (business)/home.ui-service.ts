@@ -16,7 +16,7 @@ export class HomeUIService {
   }
 
   //открытия модуля  "Customers" | "Products" | "Orders" на Home
-  @logStep()
+  @logStep("UI Service: Open Module")
   async openModule(moduleName: ModuleName) {
     await this.homePage.clickModuleButton(moduleName);
     switch (moduleName) {
@@ -29,7 +29,7 @@ export class HomeUIService {
     }
   }
 
-   @logStep("Open Sales Portal on Home Page")
+   @logStep("UI Service: Open Sales Portal on Home Page")
   async openAsLoggedInUser() {
     await this.homePage.openPortal();
     await this.homePage.waitForOpened();

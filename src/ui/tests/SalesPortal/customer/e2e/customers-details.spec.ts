@@ -1,3 +1,4 @@
+import { TAGS } from "data/tages";
 import { expect, test } from "fixtures/ui-services.fixture";
 import _ from "lodash";
 import { convertToDateAndTime } from "utils/date.utils";
@@ -8,7 +9,7 @@ test.describe("[E2E] [UI] [Customers] [Details]", () => {
 
   test(
     "Should display valid customer data",
-    { tag: ["@smoke", "@regression"] },
+    { tag: [TAGS.UI, TAGS.SMOKE, TAGS.REGRESSION] },
     async ({
       // signInUIService,
       homeUIService,
