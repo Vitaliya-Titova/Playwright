@@ -1,10 +1,10 @@
 name: Run playwright UI tests
 on:
   workflow_dispatch: # Manually trigger the workflow
-  # push:
-  #   branches:
-  #     - main
-  # pull_request:
+  push:
+    branches:
+      - main
+  pull_request:
 jobs:
   test:
     timeout-minutes: 60
@@ -28,27 +28,5 @@ jobs:
         env:
           USER_LOGIN: ${{ secrets.USER_LOGIN }}
           USER_PASSWORD: ${{ secrets.USER_PASSWORD }}
-          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
-          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
         run: npm run test:ui
         continue-on-error: true
-
-      # Create Allure report
-      - name: Create Allure report
-        run: npm run allure-report
-
-      # Save allure report into artifacts
-      - name: Save Allure report
-        uses: actions/upload-artifact@v4
-        with:
-          name: regression-report
-          path: ./allure-report
-
-      # Deploy to GitHub Pages
-      - name: Deploy to GitHub Pages
-        if: success()
-        uses: peaceiris/actions-gh-pages@v3
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./allure-report
-          destination_dir: allure-report
