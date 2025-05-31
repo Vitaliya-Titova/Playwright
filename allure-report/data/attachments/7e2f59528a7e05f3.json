@@ -1,0 +1,17 @@
+{
+  "headers": {
+    "content-type": "application/json",
+    "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4MDRmMjcyZDAwNmJhM2Q0NzVmYjNlMCIsInJvbGVzIjpbIlVTRVIiXSwiaWF0IjoxNzQ4NzA0MzY5LCJleHAiOjE3NDg3OTA3Njl9.iXbTZdhQO31EbSalCb3NYRoWkkXu-ogLr2icrBwcyFo"
+  },
+  "body": {
+    "email": "test1748731784014@gmail.com",
+    "name": "TestVita XfFZOSeKMVZOCuDvqkkGjOIzbPNJZpl",
+    "country": "Belarus",
+    "city": "City ZtGAhUUdeIVzZdG",
+    "street": "Street FYHfQw9a6IJ7hJc1YPxfuNz2PYQubWGY0",
+    "house": 650,
+    "flat": 6271,
+    "phone": "+6239460445",
+    "notes": "Notes BoghqOVInnHOllCYRvEFfTDvlcEUxqbAkXuBfVNiCLXITFmNMPxYcsrUGXklPnTJZcioDAYwPgbpCJopwYmpegGUUTXCFAmgyKaCIZciPoNpnbEaEJnfeXvRUhqqfVcpdUOZZwZlturBkBjNiIGjGKsLbSAgZhemLeTXHAkdtoiOqqoVpQYaSCvSZYgFHiqFDacAWbhddoUonsHHThQJDWZJGCfJSEUQAVYChgrEPQtZmTlRxzMx"
+  }
+}

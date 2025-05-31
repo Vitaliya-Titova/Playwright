@@ -1,0 +1,31 @@
+{
+  "headers": {
+    "date": "Sat, 31 May 2025 22:49:45 GMT",
+    "server": "Apache",
+    "x-powered-by": "Express",
+    "access-control-allow-origin": "*",
+    "access-control-expose-headers": "Authorization,X-User-Name",
+    "content-type": "application/json; charset=utf-8",
+    "content-length": "620",
+    "etag": "W/\"26c-78tY22TbSrB1mrnMp0gx6Y1ulFo\"",
+    "keep-alive": "timeout=5, max=95",
+    "connection": "Keep-Alive"
+  },
+  "body": {
+    "Customer": {
+      "_id": "683b8788246db7737e2ee39c",
+      "email": "test1748731785013@gmail.com",
+      "name": "TestVita hWWiwQLutoxuzPCduHAzgaJsdvwnUNr",
+      "country": "Belarus",
+      "city": "City ndmNYrZkgjwmQCy",
+      "street": "Street aKhrNQCBIrzUHGOJv92UQoTIDS8ZoSq4u",
+      "house": 589,
+      "flat": 4911,
+      "phone": "+9334499464",
+      "createdOn": "2025-05-31T22:49:44.000Z",
+      "notes": "Notes rpDxpejlBtKMrMDeixPgSbKvTYNcCBEBWsVjUTxdfWxfSsoeCxJJwwFUwSaAgpyVkbJAiCTOxnGFWzgRoJQNVIZpytPgEYezeqHOgpDOxelADaWtNgaaCNADLMGTPEPEYehoaGDUXVERhtTEHICiOWqVIuMGnwozxOhiQOhdEDJTdaiJFQAMetWSXxoyPeaJsAQVOIPevQaCbzmiuIptwvVAsTCcSvZLISbLJCJLHEoCGDCzAMdG"
+    },
+    "IsSuccess": true,
+    "ErrorMessage": null
+  }
+}

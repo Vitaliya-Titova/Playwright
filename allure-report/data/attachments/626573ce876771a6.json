@@ -1,0 +1,27 @@
+{
+  "headers": {
+    "date": "Sat, 31 May 2025 22:53:06 GMT",
+    "server": "Apache",
+    "x-powered-by": "Express",
+    "access-control-allow-origin": "*",
+    "access-control-expose-headers": "Authorization,X-User-Name",
+    "content-type": "application/json; charset=utf-8",
+    "content-length": "482",
+    "etag": "W/\"1e2-i3Dgc1f7wDRwf4LPk1sQC0bobM0\"",
+    "keep-alive": "timeout=5, max=100",
+    "connection": "Keep-Alive"
+  },
+  "body": {
+    "Product": {
+      "_id": "683b8851246db7737e2eeba9",
+      "name": "TestVita vqbilifwEhcyzEUbRQzfHDaXigwecxw",
+      "amount": 1,
+      "price": 19742,
+      "manufacturer": "Google",
+      "createdOn": "2025-05-31T22:53:05.000Z",
+      "notes": "Notes qwmfwOvCEBwALVPNORPUJqFrnKfuuiaUlNTAAPLbDxbuZucXohnfLzkAumazyMGwziDyjhStiWkkKELzcUpoWoZucnOMKNMqKrjtAYKoLHjoSgEHxPTiutmEvvXjTghUDoXfFgvkWlaVJOwvQlWTqytFjYuVIgkOdLaYHvyrZHKGmMkqLjeeZsfJbMVQmtEXvIGkAEsWZVmcEBpNbeUPpxxOKWawfiyiXztnTOFmGOwpGnqwnIUn"
+    },
+    "IsSuccess": true,
+    "ErrorMessage": null
+  }
+}
