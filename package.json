@@ -30,8 +30,10 @@
     "@types/lodash": "^4.17.16",
     "@types/moment": "^2.11.29",
     "@types/node": "^22.14.1",
+    "@types/node-telegram-bot-api": "^0.64.8",
     "@types/numeral": "^2.0.5",
-    "allure-playwright": "^3.2.2"
+    "allure-playwright": "^3.2.2",
+    "node-telegram-bot-api": "^0.66.0"
   },
   "dependencies": {
     "@faker-js/faker": "^9.7.0",
