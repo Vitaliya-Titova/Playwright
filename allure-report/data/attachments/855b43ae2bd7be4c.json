@@ -1,0 +1,31 @@
+{
+  "headers": {
+    "date": "Sat, 31 May 2025 19:44:49 GMT",
+    "server": "Apache",
+    "x-powered-by": "Express",
+    "access-control-allow-origin": "*",
+    "access-control-expose-headers": "Authorization,X-User-Name",
+    "content-type": "application/json; charset=utf-8",
+    "content-length": "616",
+    "etag": "W/\"268-0eVXwXsFd1pvGELY41a73MrcY/c\"",
+    "keep-alive": "timeout=5, max=96",
+    "connection": "Keep-Alive"
+  },
+  "body": {
+    "Customer": {
+      "email": "test1748720689875@gmail.com",
+      "name": "TestVita oJdRrLkchKuxaStxrvnBVCtgSlePyGk",
+      "country": "USA",
+      "city": "City sGDExiHGAlOZBcE",
+      "street": "Street UKQfUiKXsE4MWZe7vHyTxtdVVBhhwc1E2",
+      "house": 240,
+      "flat": 1094,
+      "phone": "+7130069964",
+      "createdOn": "2025-05-31T19:44:49.000Z",
+      "notes": "Notes WHdgYKIIzlRBlNlrwYuafmSgqDwqUnqJnpzTCtcDRJqmUTfuYCJOazsIbTaWBnNErArtAqZTBpZTJKGMtqiyjhLEQYFHPiEQYiRsimqGZvmydUdMjtgmQrLJRdGLdJKbVElqcvWnoLJZHHoYcvXpiJFwqjXRNvyHHVFBASMfOokMsjWZoJVwRvuZprCKNWvPLTkFrALnYrqycXrsuZuyKAxAuboOjqFCDZlsHXDKXabHbHJRMyoV",
+      "_id": "683b5c31dc3ed39e9449e787"
+    },
+    "IsSuccess": true,
+    "ErrorMessage": null
+  }
+}
