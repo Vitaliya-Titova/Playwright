@@ -1,0 +1,17 @@
+{
+  "headers": {
+    "content-type": "application/json",
+    "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4MDRmMjcyZDAwNmJhM2Q0NzVmYjNlMCIsInJvbGVzIjpbIlVTRVIiXSwiaWF0IjoxNzQ4NzA0MzY5LCJleHAiOjE3NDg3OTA3Njl9.iXbTZdhQO31EbSalCb3NYRoWkkXu-ogLr2icrBwcyFo"
+  },
+  "body": {
+    "email": "test1748724693659@gmail.com",
+    "name": "TestVita SGUEohEEBSJxrXClgWIwDXttPaXlvZS",
+    "country": "Canada",
+    "city": "City rdsGASzpNOBfcwv",
+    "street": "Street lVEJTXyQQlTiPQKDNS3ZDN5xGECLBAWUa",
+    "house": 633,
+    "flat": 1141,
+    "phone": "+6610408214",
+    "notes": "Notes FoNHLMgZaYHnuRYtHUowqCLFGcvKhblRYfDAlZdqQuBaXpsGkbINCNNCNxlWjTEjZDPOXgLxPciRrGLsXlmDoIuuOhogaJEmNJejywQZAmvEQClNQtPxaFwlLGfAvCyvWltZaBFhJnyNKvmqdqmMSXsEbnDepuMlpRAzsPtAkOQTVBfVGWTjhwPgZDfHebVFULTpsqvxrlTbFthPeXTGgbEsuQswNcijaJwtEJOAdmuXDqpSqxNl"
+  }
+}

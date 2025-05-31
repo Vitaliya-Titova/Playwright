@@ -1,0 +1,17 @@
+{
+  "headers": {
+    "content-type": "application/json",
+    "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4MDRmMjcyZDAwNmJhM2Q0NzVmYjNlMCIsInJvbGVzIjpbIlVTRVIiXSwiaWF0IjoxNzQ4NzA0MzY5LCJleHAiOjE3NDg3OTA3Njl9.iXbTZdhQO31EbSalCb3NYRoWkkXu-ogLr2icrBwcyFo"
+  },
+  "body": {
+    "email": "test1748724690530@gmail.com",
+    "name": "TestVita VXRGqqJgdTtzwLWnzqRnJKgejuELDqt",
+    "country": "Ukraine",
+    "city": "City FfWyiLoZwakbmxM",
+    "street": "Street v5D6GqW4XP3YMVwK8SRr6vVJVCRENWjIf",
+    "house": 397,
+    "flat": 4977,
+    "phone": "+1931955344",
+    "notes": "Notes RIatZKyfrozfUrQpowWJnkVxvshNCwHVtLXqWEtPTqlJtMYNQxkCjHESveAYjbROkGJCXXQFEnePTYsUVgipLAVCdqwNKVMGSjTvmPcbUkqrYikPhQxGRVAkUckVTmkUCYxyCLglMOfnAMPKPKptkfbbTDQZkAjJFgXQChqWfIVeXAxWaeXoBvJuOWnXrxSBWlbAmydbTxnGTVWljgLwDRUCobXUjLNKSawjQRrOcSjpBebUWsmH"
+  }
+}
