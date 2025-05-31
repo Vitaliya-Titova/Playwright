@@ -8,7 +8,7 @@ test.describe("[E2E] [UI] [Products] [Create]", () => {
   let token = "";
   test(
     "Create product with smoke data",
-    { tag: [TAGS.UI, TAGS.SMOKE, TAGS.REGRESSION, TAGS.VISUAL_REGRESSION] },
+    { tag: [TAGS.UI, TAGS.SMOKE, TAGS.REGRESSION] },
     async ({
       // signInUIService,
       homeUIService,
