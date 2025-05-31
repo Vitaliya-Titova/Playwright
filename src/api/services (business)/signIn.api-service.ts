@@ -2,6 +2,7 @@ import { APIRequestContext, expect } from "@playwright/test";
 import { SignInController } from "api/controllers/signIn.controller";
 import { USER_LOGIN, USER_PASSWORD } from "config/environment";
 import { STATUS_CODES } from "data/statusCodes";
+import { logStep } from "utils/reporter.utils";
 import { validateResponse } from "utils/validations/responseValidation";
 
 export class SignInApiService {
@@ -10,6 +11,7 @@ export class SignInApiService {
     this.controller = new SignInController();
   }
 
+   @logStep("Login via API")
   async loginAsLocalUser() {
     const response = await this.controller.signIn({
       username: USER_LOGIN,

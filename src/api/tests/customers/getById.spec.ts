@@ -4,10 +4,11 @@ import { USER_LOGIN, USER_PASSWORD } from "config/environment";
 import { generateCustomerData } from "data/customers/generateCustomerData";
 import { customerSchema } from "data/schemas/customers/customer.schema";
 import { STATUS_CODES } from "data/statusCodes";
+import { TAGS } from "data/tages";
 import { validateSchema } from "utils/validations/schemaValidation";
 
 test.describe("[API] [Customers] [Get By Id]", () => {
-  test("Should get created customer by id", async ({ request }) => {
+  test("Should get created customer by id", { tag: [TAGS.SMOKE, TAGS.API, TAGS.REGRESSION] }, async ({ request }) => {
     //login
     const loginResponse = await request.post(apiConfig.BASE_URL + apiConfig.ENDPOINTS.LOGIN, {
       data: { username: USER_LOGIN, password: USER_PASSWORD },
@@ -42,14 +43,18 @@ test.describe("[API] [Customers] [Get By Id]", () => {
 
     const body = await getResponse.json();
     // Валидация схемы ответа
-    validateSchema(customerSchema, body);
-    // Проверка статуса GET запроса
-    expect.soft(getResponse.status()).toBe(STATUS_CODES.OK);
-    // Проверка тела ответа (соответствие созданному customer)
-    expect.soft(body.Customer).toMatchObject({ ...customerBody.Customer });
-    expect.soft(body.ErrorMessage).toBe(null);
-    expect.soft(body.IsSuccess).toBe(true);
+    test.step("Validate  response JSON schema", async () => {
+      validateSchema(customerSchema, body);
+    });
 
+    // Проверка статуса GET запроса
+    test.step("Verify customer data in response", async () => {
+      expect.soft(getResponse.status()).toBe(STATUS_CODES.OK);
+      // Проверка тела ответа (соответствие созданному customer)
+      expect.soft(body.Customer).toMatchObject({ ...customerBody.Customer });
+      expect.soft(body.ErrorMessage).toBe(null);
+      expect.soft(body.IsSuccess).toBe(true);
+    });
     // Удаление созданного customer
     const response = await request.delete(apiConfig.BASE_URL + apiConfig.ENDPOINTS.CUSTOMER_BY_ID(customerBody.Customer._id), {
       headers: {

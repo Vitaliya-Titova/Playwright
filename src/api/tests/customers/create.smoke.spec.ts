@@ -7,12 +7,13 @@ import { STATUS_CODES } from "data/statusCodes";
 import _ from "lodash";
 import { validateSchema } from "utils/validations/schemaValidation";
 import { validateResponse } from "utils/validations/responseValidation";
+import { TAGS } from "data/tages";
 
 test.describe("[API] [Customers] [Create]", () => {
   let id = "";
   let authToken = "";
 
-  test.skip("Create customer with smoke data", async ({ request }) => {
+  test.skip("Create customer with smoke data", { tag: [TAGS.SMOKE, TAGS.API, TAGS.REGRESSION] }, async ({ request }) => {
     // Запрос на логин
     const loginResponse = await request.post(apiConfig.BASE_URL + apiConfig.ENDPOINTS.LOGIN, {
       data: { username: USER_LOGIN, password: USER_PASSWORD },
@@ -81,42 +82,51 @@ test.describe("[API] [Customers] [Create]", () => {
     expect.soft(response.status()).toBe(STATUS_CODES.DELETED);
   });
 
-  test("Create customer with smoke data and Controller", async ({ loginController, customersController }) => {
-    //login
-    const sigInResponse = await loginController.signIn({
-      username: USER_LOGIN,
-      password: USER_PASSWORD,
-    });
-    const headers = sigInResponse.headers;
-    authToken = headers["authorization"];
-    expect.soft(authToken).toBeTruthy();
-    expect.soft(sigInResponse.status).toBe(STATUS_CODES.OK);
+  test(
+    "Create customer with smoke data and Controller",
+    { tag: [TAGS.SMOKE, TAGS.API, TAGS.REGRESSION] },
+    async ({ loginController, customersController }) => {
+      //login
+      const sigInResponse = await loginController.signIn({
+        username: USER_LOGIN,
+        password: USER_PASSWORD,
+      });
+      const headers = sigInResponse.headers;
+      authToken = headers["authorization"];
+      expect.soft(authToken).toBeTruthy();
+      expect.soft(sigInResponse.status).toBe(STATUS_CODES.OK);
 
-    // Проверка данных пользователя
-    // expect.soft(sigInResponse.body.User).toMatchObject(expectedUser);
-    // // Проверка отсутствия ошибки
-    // expect.soft(sigInResponse.body.ErrorMessage).toBe(null);
-    // // Проверка IsSuccess: true
-    // expect.soft(sigInResponse.body.IsSuccess).toBe(true);
-    //валидация ответа >> вынесли ErrorMessage / IsSuccess, response.status в отдельную функцию validateResponse
-    //validateResponse(sigInResponse, STATUS_CODES.OK, true, null);
+      // Проверка данных пользователя
+      // expect.soft(sigInResponse.body.User).toMatchObject(expectedUser);
+      // // Проверка отсутствия ошибки
+      // expect.soft(sigInResponse.body.ErrorMessage).toBe(null);
+      // // Проверка IsSuccess: true
+      // expect.soft(sigInResponse.body.IsSuccess).toBe(true);
+      //валидация ответа >> вынесли ErrorMessage / IsSuccess, response.status в отдельную функцию validateResponse
+      //validateResponse(sigInResponse, STATUS_CODES.OK, true, null);
 
-    const customerData = generateCustomerData();
-    //создание customer
-    const customerResponse = await customersController.create(customerData, authToken);
-    id = customerResponse.body.Customer._id;
+      const customerData = generateCustomerData();
+      //создание customer
+      const customerResponse = await customersController.create(customerData, authToken);
+      id = customerResponse.body.Customer._id;
 
-    //валидация json-схемы
-    validateSchema(customerSchema, customerResponse.body);
-    //валидация ответа
-    validateResponse(customerResponse, STATUS_CODES.CREATED, true, null);
-    expect.soft(customerResponse.body.Customer).toMatchObject({ ...customerData });
+      //валидация json-схемы
+      test.step("Validate  response JSON schema", async () => {
+        validateSchema(customerSchema, customerResponse.body);
+      });
 
-    //вынесли ErrorMessage / IsSuccess, response.status в отдельную функцию validateResponse
-    // expect.soft(customerResponse.status()).toBe(STATUS_CODES.CREATED);
-    // expect.soft(body.ErrorMessage).toBe(null);
-    // expect.soft(body.IsSuccess).toBe(true);
-  });
+      //валидация ответа
+      test.step("Check successful customer creation via API", async () => {
+        validateResponse(customerResponse, STATUS_CODES.CREATED, true, null);
+        expect.soft(customerResponse.body.Customer).toMatchObject({ ...customerData });
+      });
+
+      //вынесли ErrorMessage / IsSuccess, response.status в отдельную функцию validateResponse
+      // expect.soft(customerResponse.status()).toBe(STATUS_CODES.CREATED);
+      // expect.soft(body.ErrorMessage).toBe(null);
+      // expect.soft(body.IsSuccess).toBe(true);
+    }
+  );
 
   //удаление созданного customer
   //after хуки выполняются после завершения теста

@@ -2,6 +2,7 @@ import { Page } from "@playwright/test";
 import { USER_LOGIN, USER_PASSWORD } from "config/environment";
 import { HomePage } from "ui/pages/home.page";
 import { SignInPage } from "ui/pages/signIn.page";
+import { logStep } from "utils/reporter.utils";
 
 //доп слой астракции
 
@@ -13,6 +14,7 @@ export class SignInUIService {
     this.homePage = new HomePage(page);
   }
 
+  @logStep("UI Service: Login as Local User")
   async signInAsLocalUser() {
     await this.signInPage.openPortal();
     await this.signInPage.fillCredentials({ username: USER_LOGIN, password: USER_PASSWORD });

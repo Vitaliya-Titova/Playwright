@@ -7,6 +7,7 @@ import { validateResponse } from "utils/validations/responseValidation";
 import { regInvalidTestData } from "data/customers/create.invalid.data";
 import { invalidCreationCustomerSchema } from "data/schemas/customers/invalidCreation.customer";
 import { ICustomer } from "types/customer.types";
+import { TAGS } from "data/tages";
 
 test.describe("[API] [Customers] [Create] Negative tests", () => {
   let authToken = "";
@@ -26,17 +27,22 @@ test.describe("[API] [Customers] [Create] Negative tests", () => {
 
   //DDT negative tests
   regInvalidTestData.forEach(({ testName, invalidCreationCustomerData, message, statusCode }) => {
-    test(testName, async ({ customersController }) => {
+    test(testName, { tag: [TAGS.API, TAGS.REGRESSION] }, async ({ customersController }) => {
       //создание customer
       //type assertion: Приводим Partial<ICustomer> к ICustomer,чтобы не было ошибки в create из-за отсутвия некоторых полей в тестах
       const customerResponse = await customersController.create(invalidCreationCustomerData as ICustomer, authToken);
 
       //валидация json-схемы
-      validateSchema(invalidCreationCustomerSchema, customerResponse.body);
+      test.step("Validate error response JSON schema", async () => {
+        validateSchema(invalidCreationCustomerSchema, customerResponse.body);
+      });
+
       //asserts
-      expect.soft(customerResponse.status).toBe(statusCode);
-      expect.soft(customerResponse.body.ErrorMessage).toBe(message);
-      expect.soft(customerResponse.body.IsSuccess).toBe(false);
+      test.step("Check  API-response for invalid creation", async () => {
+        expect.soft(customerResponse.status).toBe(statusCode);
+        expect.soft(customerResponse.body.ErrorMessage).toBe(message);
+        expect.soft(customerResponse.body.IsSuccess).toBe(false);
+      });
     });
   });
 });

@@ -1,5 +1,6 @@
 import { IProduct } from "types/products.type";
 import { SalesPortalPage } from "../salePortal.page";
+import { logStep } from "utils/reporter.utils";
 
 export class AddNewProductPage extends SalesPortalPage {
   //inputs
@@ -17,6 +18,7 @@ export class AddNewProductPage extends SalesPortalPage {
 
   readonly uniqueElement = this.saveNewProductButton;
 
+  @logStep("UI: Fill New Product inputs")
   async fillInputs(product: Partial<IProduct>) {
     product.name && (await this.nameInput.fill(String(product.name)));
     product.manufacturer && (await this.manufacturerInput.selectOption(product.manufacturer));
@@ -25,10 +27,12 @@ export class AddNewProductPage extends SalesPortalPage {
     product.notes && (await this.notesInput.fill(product.notes));
   }
 
+  @logStep("UI: Click on Save New Product button")
   async clickSaveNewProduct() {
     await this.saveNewProductButton.click();
   }
 
+  @logStep("UI: Get Errot Message")
   async getError() {
     return await this.nameError.textContent();
   }

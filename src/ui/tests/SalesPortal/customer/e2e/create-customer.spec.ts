@@ -1,4 +1,5 @@
 import { STATUS_CODES } from "data/statusCodes";
+import { TAGS } from "data/tages";
 import { expect, test } from "fixtures/ui-services.fixture";
 
 test.describe("[E2E] [UI] [Customers] [Create]", () => {
@@ -6,7 +7,7 @@ test.describe("[E2E] [UI] [Customers] [Create]", () => {
   let token = "";
   test(
     "Create customer with smoke data",
-    { tag: ["@smoke"] },
+    { tag: [TAGS.UI, TAGS.SMOKE, TAGS.REGRESSION] },
     async ({
       // signInUIService,
       homeUIService,
@@ -17,7 +18,7 @@ test.describe("[E2E] [UI] [Customers] [Create]", () => {
     }) => {
       // test.step("Open portal on Home Page", async () => {
       // token = await signInUIService.signInAsLocalUser();
-     await homeUIService.openAsLoggedInUser();
+      await homeUIService.openAsLoggedInUser();
       // });
       token = (await page.context().cookies()).find((c) => c.name === "Authorization")!.value;
       await homeUIService.openModule("Customers");

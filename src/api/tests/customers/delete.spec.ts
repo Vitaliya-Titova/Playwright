@@ -1,12 +1,15 @@
-import test, { expect } from "@playwright/test";
+//import test, { expect } from "@playwright/test";
+import { test, expect } from "fixtures/ui-services.fixture";
 import { apiConfig } from "config/api-config";
 import { USER_LOGIN, USER_PASSWORD } from "config/environment";
 import { generateCustomerData } from "data/customers/generateCustomerData";
 import { STATUS_CODES } from "data/statusCodes";
+import { TAGS } from "data/tages";
 
 test.describe("[API] [Customers] [Delete]", () => {
   //login
-  test("Should delete customer", async ({ request }) => {
+
+  test("Should delete customer", { tag: [TAGS.SMOKE, TAGS.API, TAGS.REGRESSION] }, async ({ request }) => {
     const loginResponse = await request.post(apiConfig.BASE_URL + apiConfig.ENDPOINTS.LOGIN, {
       data: { username: USER_LOGIN, password: USER_PASSWORD },
       headers: {
@@ -18,6 +21,7 @@ test.describe("[API] [Customers] [Delete]", () => {
     expect.soft(loginResponse.status()).toBe(STATUS_CODES.OK);
 
     //создание нового customer
+
     const customerData = generateCustomerData();
     const customerResponse = await request.post(apiConfig.BASE_URL + apiConfig.ENDPOINTS.CUSTOMERS, {
       data: customerData,
@@ -37,8 +41,10 @@ test.describe("[API] [Customers] [Delete]", () => {
       },
     });
     //проверка, что созданный customer удален
-    const deleteBody = await response.text();
-    expect.soft(response.status()).toBe(STATUS_CODES.DELETED);
-    expect.soft(deleteBody).toBe(""); //body пустая строка после удаления
+    test.step("Validate  that customer is deleted", async () => {
+      const deleteBody = await response.text();
+      expect.soft(response.status()).toBe(STATUS_CODES.DELETED);
+      expect.soft(deleteBody).toBe(""); //body пустая строка после удаления
+    });
   });
 });

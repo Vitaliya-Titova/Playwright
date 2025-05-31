@@ -7,6 +7,7 @@ import { AddNewProductPage } from "ui/pages/products/add-new-product.page";
 import _ from "lodash";
 import { IProduct, IProductResponse } from "types/products.type";
 import { generateProductData } from "data/products/generateProductData";
+import { logStep } from "utils/reporter.utils";
 
 export class AddNewProductUiService {
   private productsPage: ProductsPage;
@@ -16,6 +17,7 @@ export class AddNewProductUiService {
     this.productsPage = new ProductsPage(page);
   }
 
+  @logStep("UI Service: Create new Product on Add New Product Page")
   async create(productData?: IProduct) {
     //на этом уровне аргумент productData?: IProduct не обязателен
     const data = generateProductData(productData);
@@ -32,5 +34,4 @@ export class AddNewProductUiService {
     await this.productsPage.waitForOpened();
     return response.body.Product;
   }
-  
 }
